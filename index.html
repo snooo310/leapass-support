@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeaPASS — Member Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream:    #f2ece3;
+      --cream-dk: #e9e0d4;
+      --brown-dk: #2c1a0c;
+      --brown-md: #6b3f1e;
+      --brown-lt: #9b7c58;
+      --gold:     #c49a6c;
+      --white:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--brown-dk);
+      font-family: 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════
+       HEADER（ナビなし・ロゴのみ）
+    ══════════════════════ */
+    .site-header {
+      background: var(--cream);
+      padding: 16px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(44,26,12,.10);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .logo-wrap { text-align: center; }
+    .logo-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: var(--brown-lt);
+      display: block;
+      margin-bottom: 1px;
+    }
+    .logo-main {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--brown-dk);
+      letter-spacing: 8px;
+      display: block;
+      line-height: 1.1;
+    }
+    .logo-since {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: var(--brown-lt);
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* ══════════════════════
+       NAV ICONS
+    ══════════════════════ */
+    .nav-icons {
+      background: var(--cream);
+      padding: 44px 60px 52px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+    .nav-item {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform .3s cubic-bezier(.22,.68,0,1.2);
+    }
+    .nav-item:hover { transform: translateY(-6px); }
+    .nav-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      margin: 0 auto 13px;
+      overflow: hidden;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(44,26,12,.07);
+      box-shadow: 0 3px 14px rgba(44,26,12,.08);
+      transition: box-shadow .3s;
+    }
+    .nav-item:hover .nav-circle {
+      box-shadow: 0 8px 28px rgba(44,26,12,.14);
+    }
+    .nav-circle img {
+      width: 66%;
+      height: 66%;
+      object-fit: contain;
+    }
+    .nav-label {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      color: var(--brown-md);
+      letter-spacing: 2.5px;
+    }
+
+    /* ══════════════════════
+       HERO
+    ══════════════════════ */
+    .hero {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+    }
+    .hero > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 45%;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(242,236,227,.08) 0%,
+        rgba(242,236,227,.65) 100%
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .hero-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: 7px;
+      color: var(--brown-md);
+      background: rgba(242,236,227,.82);
+      padding: 5px 22px;
+      border-radius: 2px;
+    }
+    .hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: var(--brown-dk);
+      letter-spacing: 10px;
+      text-shadow: 0 2px 28px rgba(242,236,227,.95);
+    }
+    .hero-subtitle {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--brown-md);
+      letter-spacing: 5px;
+    }
+
+    /* ══════════════════════
+       SECTION BASE
+    ══════════════════════ */
+    .section {
+      padding: 84px 60px;
+    }
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .section-head {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-head h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--brown-dk);
+      letter-spacing: 7px;
+    }
+    .section-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 16px auto 0;
+    }
+    .section-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--brown-lt);
+      margin-top: 10px;
+    }
+
+    /* ══════════════════════
+       お知らせ
+    ══════════════════════ */
+    .news-section { background: var(--cream); }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .news-card {
+      background: var(--white);
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 2px 18px rgba(44,26,12,.07);
+      transition: box-shadow .3s, transform .3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .news-card:hover {
+      box-shadow: 0 8px 34px rgba(44,26,12,.14);
+      transform: translateY(-3px);
+    }
+    .news-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--cream-dk) 0%, #d5c4ae 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .news-thumb img {
+      width: 108px;
+      height: 108px;
+      object-fit: contain;
+    }
+    .news-body { padding: 18px 20px 24px; }
+    .news-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .news-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px;
+      color: var(--brown-dk);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════
+       PROFILE（LP風）
+    ══════════════════════ */
+    .profile-section {
+      background: var(--white);
+      padding: 92px 60px;
+    }
+    .profile-section .section-head {
+      margin-bottom: 64px;
+    }
+    .profile-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .profile-photo {
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .profile-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: var(--brown-lt);
+      margin-bottom: 6px;
+    }
+    .profile-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--brown-dk);
+      letter-spacing: 4px;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .profile-role {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--brown-lt);
+      letter-spacing: 2px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(44,26,12,.12);
+    }
+    .profile-block { margin-bottom: 28px; }
+    .profile-block-label {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brown-dk);
+      letter-spacing: 6px;
+      padding-bottom: 9px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(44,26,12,.12);
+    }
+    .profile-block ul { list-style: none; }
+    .profile-block li {
+      font-size: 13.5px;
+      color: var(--brown-md);
+      padding: 7px 0 7px 18px;
+      position: relative;
+      border-bottom: 1px solid rgba(44,26,12,.05);
+      letter-spacing: .3px;
+    }
+    .profile-block li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ══════════════════════
+       LINE CTA
+    ══════════════════════ */
+    .cta-section {
+      background: var(--brown-dk);
+      padding: 80px 60px;
+      text-align: center;
+    }
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .cta-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 4px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .cta-desc {
+      font-size: 13.5px;
+      color: rgba(255,255,255,.65);
+      line-height: 2;
+      letter-spacing: .3px;
+      margin-bottom: 36px;
+    }
+    .cta-btn {
+      display: inline-block;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--brown-dk);
+      background: var(--gold);
+      padding: 16px 48px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background .25s, transform .2s;
+    }
+    .cta-btn:hover {
+      background: #d4a878;
+      transform: translateY(-2px);
+    }
+
+    /* ══════════════════════
+       FOOTER
+    ══════════════════════ */
+    .site-footer {
+      background: var(--brown-dk);
+      border-top: 1px solid rgba(196,154,108,.15);
+      color: var(--gold);
+      text-align: center;
+      padding: 40px 60px;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      margin-bottom: 5px;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: rgba(196,154,108,.6);
+      margin-bottom: 14px;
+    }
+    .footer-copy {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(196,154,108,.38);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     HEADER（ロゴのみ）
+══════════════════════════════ -->
+<header class="site-header">
+  <div class="logo-wrap">
+    <span class="logo-tagline">TOEIC Coaching</span>
+    <span class="logo-main">LeaPASS</span>
+    <span class="logo-since">— SINCE 2025 —</span>
+  </div>
+</header>
+
+
+<!-- ══════════════════════════════
+     NAV ICONS
+══════════════════════════════ -->
+<nav class="nav-icons">
+  <a class="nav-item" href="service.html">
+    <div class="nav-circle">
+      <img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt="サービス">
+    </div>
+    <div class="nav-label">サービス</div>
+  </a>
+  <a class="nav-item" href="toeic.html">
+    <div class="nav-circle">
+      <img src="https://loosedrawing.com/assets/media/illustrations/png/1739.png" alt="TOEIC対策">
+    </div>
+    <div class="nav-label">TOEIC対策</div>
+  </a>
+  <a class="nav-item" href="materials.html">
+    <div class="nav-circle">
+      <img src="https://loosedrawing.com/assets/media/illustrations/png/1765.png" alt="学習教材">
+    </div>
+    <div class="nav-label">学習教材</div>
+  </a>
+  <a class="nav-item" href="news.html">
+    <div class="nav-circle">
+      <img src="https://loosedrawing.com/assets/media/illustrations/png/ic028.png" alt="お知らせ">
+    </div>
+    <div class="nav-label">お　知　ら　せ</div>
+  </a>
+  <a class="nav-item" href="career.html">
+    <div class="nav-circle">
+      <img src="https://loosedrawing.com/assets/media/illustrations/png/1157.png" alt="キャリア">
+    </div>
+    <div class="nav-label">キャリア</div>
+  </a>
+  <a class="nav-item" href="#profile">
+    <div class="nav-circle">
+      <img src="https://loosedrawing.com/assets/media/illustrations/png/1695.png" alt="プロフィール">
+    </div>
+    <div class="nav-label">プロフィール</div>
+  </a>
+</nav>
+
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section class="hero">
+  <img src="LeaPASS/LeaPASS_original_web.jpg" alt="LeaPASS">
+  <div class="hero-overlay">
+    <div class="hero-badge">Member Site</div>
+    <div class="hero-title">LeaPASS</div>
+    <div class="hero-subtitle">TOEICで飛び立つ、理想へのPATH</div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     お知らせ
+══════════════════════════════ -->
+<section id="news" class="section news-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>お　知　ら　せ</h2>
+      <div class="section-rule"></div>
+      <div class="section-sub">News &amp; Updates</div>
+    </div>
+    <div class="news-grid">
+
+      <a class="news-card" href="news.html">
+        <div class="news-thumb">
+          <img src="https://loosedrawing.com/assets/media/illustrations/png/1534.png" alt="">
+        </div>
+        <div class="news-body">
+          <div class="news-date">2025.07.01</div>
+          <div class="news-title">LeaPASS 7月コース<br>募集開始のお知らせ</div>
+        </div>
+      </a>
+
+      <a class="news-card" href="news.html">
+        <div class="news-thumb">
+          <img src="https://loosedrawing.com/assets/media/illustrations/png/1766.png" alt="">
+        </div>
+        <div class="news-body">
+          <div class="news-date">2025.06.15</div>
+          <div class="news-title">TOEIC模試 解説資料<br>アップロード完了</div>
+        </div>
+      </a>
+
+      <a class="news-card" href="news.html">
+        <div class="news-thumb">
+          <img src="https://loosedrawing.com/assets/media/illustrations/png/1524.png" alt="">
+        </div>
+        <div class="news-body">
+          <div class="news-date">2025.06.01</div>
+          <div class="news-title">受講生スコアアップ<br>報告まとめ（5月分）</div>
+        </div>
+      </a>
+
+      <a class="news-card" href="news.html">
+        <div class="news-thumb">
+          <img src="https://loosedrawing.com/assets/media/illustrations/png/1521.png" alt="">
+        </div>
+        <div class="news-body">
+          <div class="news-date">2025.05.20</div>
+          <div class="news-title">学習スケジュール<br>テンプレート公開</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     プロフィール（LP風）
+══════════════════════════════ -->
+<section id="profile" class="profile-section">
+  <div class="section-head">
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:600;color:var(--brown-dk);letter-spacing:7px;">
+      コーチ紹介
+    </h2>
+    <div style="width:40px;height:1px;background:var(--gold);margin:16px auto 0;"></div>
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:4px;color:var(--brown-lt);margin-top:10px;">
+      Profile
+    </div>
+  </div>
+
+  <div class="profile-grid">
+    <div class="profile-photo">
+      <img src="https://snooo310.github.io/leapass-lp/LeaPASS/profile_web.jpg" alt="竹下伶音">
+    </div>
+
+    <div class="profile-info">
+      <div class="profile-en">Coach</div>
+      <div class="profile-name">竹下　伶音</div>
+      <div class="profile-role">TOEIC &amp; 英語コーチ／オーストラリア在住</div>
+
+      <div class="profile-block">
+        <div class="profile-block-label">経　歴</div>
+        <ul>
+          <li>国際教養大学（秋田）卒業 ／ 国際教養学部</li>
+          <li>カナダ・ウィルフリッドローリエ大学 交換留学</li>
+          <li>アメリカ ボストン キャリアフォーラム 参加</li>
+          <li>某アパレル大手 翻訳・通訳</li>
+          <li>2025 オーストラリア ワーキングホリデー</li>
+        </ul>
+      </div>
+
+      <div class="profile-block">
+        <div class="profile-block-label">実　績</div>
+        <ul>
+          <li>個別指導塾講師（キッズ英会話・中高英語・受験英語・英検・TOEIC対策）</li>
+          <li>オンライン日本語講師</li>
+          <li>翻訳業務</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     LINE CTA
+══════════════════════════════ -->
+<section id="contact" class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Contact</div>
+    <div class="cta-title">質問・相談はLINEから<br>いつでもどうぞ</div>
+    <div class="cta-desc">
+      学習中の疑問・進捗報告・教材へのリクエストなど、
+      気になることはお気軽にメッセージください。
+    </div>
+    <a href="#" class="cta-btn">LINE で相談する</a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-logo">LeaPASS</div>
+  <div class="footer-tagline">TOEIC Coaching</div>
+  <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
