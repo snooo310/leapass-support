@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習教材 — LeaPASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--cream:#f2ece3;--cream-dk:#e9e0d4;--brown-dk:#2c1a0c;--brown-md:#6b3f1e;--brown-lt:#9b7c58;--gold:#c49a6c;--white:#ffffff}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--brown-dk);font-family:'Noto Sans JP',sans-serif;line-height:1.7}
+    .site-header{background:var(--cream);padding:16px 60px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(44,26,12,.10);position:sticky;top:0;z-index:200}
+    .logo-wrap{text-align:center;text-decoration:none;color:inherit}
+    .logo-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;letter-spacing:5px;color:var(--brown-lt);display:block}
+    .logo-main{font-family:'Noto Serif JP',serif;font-size:34px;font-weight:700;color:var(--brown-dk);letter-spacing:8px;display:block;line-height:1.1}
+    .logo-since{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:5px;color:var(--brown-lt);display:block;margin-top:2px}
+    .nav-icons{background:var(--cream);padding:36px 60px 44px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;text-align:center}
+    .nav-item{cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;transition:transform .3s cubic-bezier(.22,.68,0,1.2)}
+    .nav-item:hover{transform:translateY(-6px)}
+    .nav-circle{width:80px;height:80px;border-radius:50%;margin:0 auto 10px;overflow:hidden;background:var(--white);display:flex;align-items:center;justify-content:center;border:1px solid rgba(44,26,12,.07);box-shadow:0 3px 14px rgba(44,26,12,.08);transition:box-shadow .3s}
+    .nav-item:hover .nav-circle{box-shadow:0 8px 28px rgba(44,26,12,.14)}
+    .nav-circle img{width:64%;height:64%;object-fit:contain}
+    .nav-label{font-family:'Noto Serif JP',serif;font-size:12px;color:var(--brown-md);letter-spacing:2px}
+    .page-hero{background:var(--cream-dk);padding:56px 60px;text-align:center;border-bottom:1px solid rgba(44,26,12,.08)}
+    .page-hero-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:5px;color:var(--brown-lt);margin-bottom:10px}
+    .page-hero-title{font-family:'Noto Serif JP',serif;font-size:36px;font-weight:700;color:var(--brown-dk);letter-spacing:6px}
+    .page-hero-rule{width:40px;height:1px;background:var(--gold);margin:18px auto 0}
+    .section{padding:72px 60px}
+    .section-inner{max-width:1080px;margin:0 auto}
+    .section-head{text-align:center;margin-bottom:52px}
+    .section-head h2{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:var(--brown-dk);letter-spacing:6px}
+    .section-rule{width:40px;height:1px;background:var(--gold);margin:14px auto 0}
+    .section-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:4px;color:var(--brown-lt);margin-top:9px}
+    /* CONTENT GRID */
+    .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-bottom:72px}
+    .content-grid:last-child{margin-bottom:0}
+    .content-grid.rev{direction:rtl}
+    .content-grid.rev>*{direction:ltr}
+    .content-img{border-radius:3px;overflow:hidden}
+    .content-img img{width:100%;display:block;border-radius:3px}
+    .content-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:5px;color:var(--gold);margin-bottom:10px}
+    .content-title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:var(--brown-dk);letter-spacing:2px;margin-bottom:18px;line-height:1.5}
+    .content-desc{font-size:14px;color:var(--brown-md);line-height:2.1;letter-spacing:.3px}
+    .content-link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:'Noto Serif JP',serif;font-size:12px;letter-spacing:3px;color:var(--brown-dk);border-bottom:1px solid var(--gold);padding-bottom:3px;text-decoration:none;transition:color .2s}
+    .content-link:hover{color:var(--brown-md)}
+    .content-link::after{content:'';display:inline-block;width:16px;height:1px;background:var(--gold)}
+    /* PDF CARDS */
+    .pdf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .pdf-card{background:var(--white);border-radius:4px;padding:28px 24px;box-shadow:0 2px 14px rgba(44,26,12,.07);text-decoration:none;color:inherit;transition:box-shadow .3s,transform .3s;display:flex;flex-direction:column;gap:10px}
+    .pdf-card:hover{box-shadow:0 8px 28px rgba(44,26,12,.13);transform:translateY(-3px)}
+    .pdf-card-tag{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:4px;color:var(--gold)}
+    .pdf-card-title{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:600;color:var(--brown-dk);line-height:1.5}
+    .pdf-card-desc{font-size:12.5px;color:var(--brown-lt);line-height:1.8}
+    .pdf-card-btn{margin-top:auto;font-size:11px;letter-spacing:3px;color:var(--brown-md);border-bottom:1px solid var(--cream-dk);padding-bottom:2px;align-self:flex-start}
+    .alt-bg{background:var(--cream-dk)}
+    .cta-section{background:var(--brown-dk);padding:72px 60px;text-align:center}
+    .cta-inner{max-width:600px;margin:0 auto}
+    .cta-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:5px;color:var(--gold);margin-bottom:14px}
+    .cta-title{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:4px;margin-bottom:16px;line-height:1.5}
+    .cta-btn{display:inline-block;font-family:'Noto Serif JP',serif;font-size:13px;letter-spacing:4px;color:var(--brown-dk);background:var(--gold);padding:14px 44px;border-radius:2px;text-decoration:none}
+    .site-footer{background:var(--brown-dk);border-top:1px solid rgba(196,154,108,.15);color:var(--gold);text-align:center;padding:36px 60px}
+    .footer-logo{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:8px;margin-bottom:4px}
+    .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <span class="logo-tagline">TOEIC Coaching</span>
+    <span class="logo-main">LeaPASS</span>
+    <span class="logo-since">— SINCE 2025 —</span>
+  </a>
+</header>
+
+<nav class="nav-icons">
+  <a class="nav-item" href="service.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt=""></div><div class="nav-label">サービス</div></a>
+  <a class="nav-item" href="toeic.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1739.png" alt=""></div><div class="nav-label">TOEIC対策</div></a>
+  <a class="nav-item" href="materials.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1765.png" alt=""></div><div class="nav-label">学習教材</div></a>
+  <a class="nav-item" href="news.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/ic028.png" alt=""></div><div class="nav-label">お知らせ</div></a>
+  <a class="nav-item" href="career.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1157.png" alt=""></div><div class="nav-label">キャリア</div></a>
+  <a class="nav-item" href="index.html#profile"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1695.png" alt=""></div><div class="nav-label">プロフィール</div></a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-en">Study Materials</div>
+  <div class="page-hero-title">学習教材</div>
+  <div class="page-hero-rule"></div>
+</div>
+
+<!-- 復習ロードマップ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>復習ロードマップ</h2>
+      <div class="section-rule"></div>
+      <div class="section-sub">Review Roadmap</div>
+    </div>
+
+    <div class="content-grid">
+      <div class="content-img">
+        <img src="LeaPASS/assets/復習方法_Part1-4_1.png" alt="Part 1–4 復習ロードマップ">
+      </div>
+      <div class="content-text">
+        <div class="content-eyebrow">Listening</div>
+        <div class="content-title">Part 1–4<br>リスニング完全攻略</div>
+        <div class="content-desc">
+          模試後の復習は「自信あり正解」「自信なし正解」「不正解」の3分類から始まります。
+          単語帳・ディクテーション・相談を組み合わせた独自フローで着実にスコアアップを目指します。
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid rev">
+      <div class="content-img">
+        <img src="LeaPASS/assets/復習方法_Part5.png" alt="Part 5 復習ロードマップ">
+      </div>
+      <div class="content-text">
+        <div class="content-eyebrow">Grammar</div>
+        <div class="content-title">Part 5<br>文法・語彙の完全制覇</div>
+        <div class="content-desc">
+          品詞・時制・語彙の3軸で体系的に整理。
+          間違えた問題は「なぜ間違えたか」の原因分析から次回の正解につなげます。
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="content-img">
+        <img src="LeaPASS/assets/復習方法_Part6,7_1.png" alt="Part 6–7 復習ロードマップ">
+      </div>
+      <div class="content-text">
+        <div class="content-eyebrow">Reading</div>
+        <div class="content-title">Part 6–7<br>長文読解の時間管理術</div>
+        <div class="content-desc">
+          パターン別の読み方と時間配分の黄金則を習得します。
+          精読・速読を状況で使い分け、最後まで確実に解き切るスキルを養います。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PDF教材 -->
+<section class="section alt-bg">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>教材ライブラリ</h2>
+      <div class="section-rule"></div>
+      <div class="section-sub">PDF Library</div>
+    </div>
+    <div class="pdf-grid">
+      <a class="pdf-card" href="LeaPASS/pdf/checklist.pdf" target="_blank">
+        <div class="pdf-card-tag">CHECKLIST</div>
+        <div class="pdf-card-title">TOEIC学習チェックリスト</div>
+        <div class="pdf-card-desc">学習の進捗を記録する専用チェックリスト</div>
+        <div class="pdf-card-btn">ダウンロード</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/grammar5.pdf" target="_blank">
+        <div class="pdf-card-tag">GRAMMAR</div>
+        <div class="pdf-card-title">絶対覚えたい英語文法5選</div>
+        <div class="pdf-card-desc">TOEIC Part 5頻出の文法パターンを厳選</div>
+        <div class="pdf-card-btn">ダウンロード</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/hinsi-meishi.pdf" target="_blank">
+        <div class="pdf-card-tag">VOCABULARY</div>
+        <div class="pdf-card-title">品詞の見分け方：名詞編</div>
+        <div class="pdf-card-desc">品詞識別のコツを名詞から体系的に学ぶ</div>
+        <div class="pdf-card-btn">ダウンロード</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/hinsi-keiyoshi.pdf" target="_blank">
+        <div class="pdf-card-tag">VOCABULARY</div>
+        <div class="pdf-card-title">品詞の見分け方：形容詞編</div>
+        <div class="pdf-card-desc">形容詞・副詞の違いをマスターする教材</div>
+        <div class="pdf-card-btn">ダウンロード</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/hinsi-fukushi.pdf" target="_blank">
+        <div class="pdf-card-tag">VOCABULARY</div>
+        <div class="pdf-card-title">品詞の見分け方：副詞編</div>
+        <div class="pdf-card-desc">副詞の役割と位置を例文で完全攻略</div>
+        <div class="pdf-card-btn">ダウンロード</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/toeic-intro.pdf" target="_blank">
+        <div class="pdf-card-tag">GUIDE</div>
+        <div class="pdf-card-title">TOEICとは？入門ガイド</div>
+        <div class="pdf-card-desc">試験形式・スコアの仕組みを完全解説</div>
+        <div class="pdf-card-btn">ダウンロード</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Contact</div>
+    <div class="cta-title">教材に関する質問は<br>LINEからどうぞ</div>
+    <a href="#" class="cta-btn">LINE で質問する</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-logo">LeaPASS</div>
+  <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>
+</footer>
+</body>
+</html>

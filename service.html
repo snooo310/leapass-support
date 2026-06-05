@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サービス案内 — LeaPASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--cream:#f2ece3;--cream-dk:#e9e0d4;--brown-dk:#2c1a0c;--brown-md:#6b3f1e;--brown-lt:#9b7c58;--gold:#c49a6c;--white:#ffffff}
+    html{scroll-behavior:smooth}
+    body{background:var(--cream);color:var(--brown-dk);font-family:'Noto Sans JP',sans-serif;line-height:1.7}
+    /* HEADER */
+    .site-header{background:var(--cream);padding:16px 60px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(44,26,12,.10);position:sticky;top:0;z-index:200}
+    .logo-wrap{text-align:center;text-decoration:none;color:inherit}
+    .logo-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;letter-spacing:5px;color:var(--brown-lt);display:block}
+    .logo-main{font-family:'Noto Serif JP',serif;font-size:34px;font-weight:700;color:var(--brown-dk);letter-spacing:8px;display:block;line-height:1.1}
+    .logo-since{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:5px;color:var(--brown-lt);display:block;margin-top:2px}
+    /* NAV ICONS */
+    .nav-icons{background:var(--cream);padding:36px 60px 44px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;text-align:center}
+    .nav-item{cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;transition:transform .3s cubic-bezier(.22,.68,0,1.2)}
+    .nav-item:hover{transform:translateY(-6px)}
+    .nav-circle{width:80px;height:80px;border-radius:50%;margin:0 auto 10px;overflow:hidden;background:var(--white);display:flex;align-items:center;justify-content:center;border:1px solid rgba(44,26,12,.07);box-shadow:0 3px 14px rgba(44,26,12,.08);transition:box-shadow .3s}
+    .nav-item:hover .nav-circle{box-shadow:0 8px 28px rgba(44,26,12,.14)}
+    .nav-circle img{width:64%;height:64%;object-fit:contain}
+    .nav-label{font-family:'Noto Serif JP',serif;font-size:12px;color:var(--brown-md);letter-spacing:2px}
+    /* PAGE HERO */
+    .page-hero{background:var(--cream-dk);padding:56px 60px;text-align:center;border-bottom:1px solid rgba(44,26,12,.08)}
+    .page-hero-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:5px;color:var(--brown-lt);margin-bottom:10px}
+    .page-hero-title{font-family:'Noto Serif JP',serif;font-size:36px;font-weight:700;color:var(--brown-dk);letter-spacing:6px}
+    .page-hero-rule{width:40px;height:1px;background:var(--gold);margin:18px auto 0}
+    /* SECTION */
+    .section{padding:72px 60px}
+    .section-inner{max-width:1080px;margin:0 auto}
+    .section-head{text-align:center;margin-bottom:52px}
+    .section-head h2{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:var(--brown-dk);letter-spacing:6px}
+    .section-rule{width:40px;height:1px;background:var(--gold);margin:14px auto 0}
+    .section-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:4px;color:var(--brown-lt);margin-top:9px}
+    /* SERVICE CARDS (4 columns) */
+    .service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:72px}
+    .service-card{background:var(--white);border-radius:4px;padding:36px 24px;text-align:center;box-shadow:0 2px 18px rgba(44,26,12,.07)}
+    .service-card-icon{width:80px;height:80px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
+    .service-card-icon img{width:100%;object-fit:contain}
+    .service-card-title{font-family:'Noto Serif JP',serif;font-size:15px;font-weight:600;color:var(--brown-dk);letter-spacing:2px;margin-bottom:12px}
+    .service-card-desc{font-size:13px;color:var(--brown-md);line-height:1.9}
+    /* HOW-TO SECTION */
+    .howto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+    .howto-card{background:var(--white);border-radius:4px;padding:32px 36px;box-shadow:0 2px 14px rgba(44,26,12,.06)}
+    .howto-num{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:600;line-height:1;margin-bottom:8px}
+    .howto-title{font-family:'Noto Serif JP',serif;font-size:16px;font-weight:600;color:var(--brown-dk);letter-spacing:2px;margin-bottom:12px}
+    .howto-desc{font-size:13.5px;color:var(--brown-md);line-height:2}
+    /* CTA */
+    .cta-section{background:var(--brown-dk);padding:72px 60px;text-align:center}
+    .cta-inner{max-width:600px;margin:0 auto}
+    .cta-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;letter-spacing:5px;color:var(--gold);margin-bottom:14px}
+    .cta-title{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--white);letter-spacing:4px;margin-bottom:16px;line-height:1.5}
+    .cta-btn{display:inline-block;font-family:'Noto Serif JP',serif;font-size:13px;letter-spacing:4px;color:var(--brown-dk);background:var(--gold);padding:14px 44px;border-radius:2px;text-decoration:none;transition:background .25s}
+    .cta-btn:hover{background:#d4a878}
+    /* FOOTER */
+    .site-footer{background:var(--brown-dk);border-top:1px solid rgba(196,154,108,.15);color:var(--gold);text-align:center;padding:36px 60px}
+    .footer-logo{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:8px;margin-bottom:4px}
+    .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
+    .alt-bg{background:var(--cream-dk)}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo-wrap" href="index.html">
+    <span class="logo-tagline">TOEIC Coaching</span>
+    <span class="logo-main">LeaPASS</span>
+    <span class="logo-since">— SINCE 2025 —</span>
+  </a>
+</header>
+
+<nav class="nav-icons">
+  <a class="nav-item" href="service.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt=""></div><div class="nav-label">サービス</div></a>
+  <a class="nav-item" href="toeic.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1739.png" alt=""></div><div class="nav-label">TOEIC対策</div></a>
+  <a class="nav-item" href="materials.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1765.png" alt=""></div><div class="nav-label">学習教材</div></a>
+  <a class="nav-item" href="news.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/ic028.png" alt=""></div><div class="nav-label">お知らせ</div></a>
+  <a class="nav-item" href="career.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1157.png" alt=""></div><div class="nav-label">キャリア</div></a>
+  <a class="nav-item" href="index.html#profile"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1695.png" alt=""></div><div class="nav-label">プロフィール</div></a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-en">Service</div>
+  <div class="page-hero-title">サービス案内</div>
+  <div class="page-hero-rule"></div>
+</div>
+
+<!-- サービス内容 -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>サービス内容</h2>
+      <div class="section-rule"></div>
+      <div class="section-sub">What's Included</div>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1437.png" alt=""></div>
+        <div class="service-card-title">Zoom 面談</div>
+        <div class="service-card-desc">週1回のオンラインセッション。<br>学習状況の確認・質問・<br>プラン調整を行います。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt=""></div>
+        <div class="service-card-title">LINE サポート</div>
+        <div class="service-card-desc">毎日のチャットで<br>疑問をすぐに解消。<br>24時間相談OK。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1455.png" alt=""></div>
+        <div class="service-card-title">勉強コミュニティ</div>
+        <div class="service-card-desc">仲間と一緒に学ぶ<br>オンライン勉強会で<br>モチベーション維持。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/ic057.png" alt=""></div>
+        <div class="service-card-title">目標スコア達成</div>
+        <div class="service-card-desc">明確な指標で<br>スコアアップを<br>確実に実現。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 活用方法 -->
+<section class="section alt-bg">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>活用方法</h2>
+      <div class="section-rule"></div>
+      <div class="section-sub">How to Use</div>
+    </div>
+    <div class="howto-grid">
+      <div class="howto-card">
+        <div class="howto-num">01</div>
+        <div class="howto-title">サービスの活用方法</div>
+        <div class="howto-desc">
+          Zoom面談では毎週の目標設定・進捗確認・質問対応を行います。
+          セッション前に学習記録（模試スコア・取り組んだ問題数）をLINEで報告してください。
+          コーチが事前に準備してセッションを最大限活用できます。
+        </div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-num">02</div>
+        <div class="howto-title">このサイトの使い方</div>
+        <div class="howto-desc">
+          「学習教材」から復習ロードマップ・PDF資料を確認できます。
+          「TOEIC対策」では学習ガイドと自習教材を参照してください。
+          「お知らせ」で最新情報を定期的にチェックしましょう。
+        </div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-num">03</div>
+        <div class="howto-title">連絡方法</div>
+        <div class="howto-desc">
+          質問・相談・進捗報告は全てLINEで受け付けています。
+          Zoom面談の日程変更もLINEから連絡してください。
+          緊急の場合はLINE通話でも対応します。
+        </div>
+      </div>
+      <div class="howto-card">
+        <div class="howto-num">04</div>
+        <div class="howto-title">コミュニティの活用</div>
+        <div class="howto-desc">
+          グループLINEで他の受講生と繋がり、学習進捗を共有しましょう。
+          月1回のオンライン勉強会（任意参加）でモチベーションを維持できます。
+          スコアアップの報告はぜひコミュニティで共有してください。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Contact</div>
+    <div class="cta-title">質問・相談はLINEから<br>いつでもどうぞ</div>
+    <a href="#" class="cta-btn">LINE で相談する</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-logo">LeaPASS</div>
+  <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>
+</footer>
+</body>
+</html>
