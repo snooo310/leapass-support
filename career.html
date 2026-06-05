@@ -42,6 +42,9 @@
     .content-img img{width:100%;display:block;border-radius:3px;aspect-ratio:4/3;object-fit:cover;object-position:center 20%}
     .content-img.illust{background:var(--cream-dk);border-radius:4px;display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;padding:32px}
     .content-img.illust img{width:90%;height:90%;object-fit:contain;aspect-ratio:auto}
+    /* Instagram embed */
+    .ig-wrap{border-radius:4px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start}
+    .ig-wrap iframe{border-radius:4px;max-width:100%;width:100%;min-height:480px}
     .content-eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:5px;color:var(--gold);margin-bottom:10px}
     .content-title{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:var(--brown-dk);letter-spacing:2px;margin-bottom:18px;line-height:1.5}
     .content-desc{font-size:14px;color:var(--brown-md);line-height:2.1}
@@ -153,8 +156,12 @@
 <section class="section">
   <div class="section-inner">
     <div class="content-grid rev">
-      <div class="content-img">
-        <img src="LeaPASS/story1_web.jpg" alt="海外での経験">
+      <div class="content-img ig-wrap">
+        <iframe src="https://www.instagram.com/reel/DZKVnKThMz8/embed"
+          width="400" height="480"
+          frameborder="0" scrolling="no" allowtransparency="true"
+          title="Instagram reel by reo_toeiceng">
+        </iframe>
       </div>
       <div class="content-text">
         <div class="content-eyebrow">Coach's Experience</div>
