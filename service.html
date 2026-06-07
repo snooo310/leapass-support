@@ -62,6 +62,14 @@
     .footer-logo{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:8px;margin-bottom:4px}
     .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
     .alt-bg{background:var(--cream-dk)}
+    /* PDF CARDS */
+    .pdf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .pdf-card{background:var(--white);border-radius:4px;padding:28px 22px;box-shadow:0 2px 14px rgba(44,26,12,.07);text-decoration:none;color:inherit;transition:box-shadow .3s,transform .3s;display:flex;flex-direction:column;gap:10px}
+    .pdf-card:hover{box-shadow:0 8px 28px rgba(44,26,12,.13);transform:translateY(-3px)}
+    .pdf-card-tag{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:4px;color:var(--gold)}
+    .pdf-card-title{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:600;color:var(--brown-dk);line-height:1.5}
+    .pdf-card-desc{font-size:12.5px;color:var(--brown-lt);line-height:1.8}
+    .pdf-card-btn{margin-top:auto;font-size:11px;letter-spacing:3px;color:var(--brown-md);border-bottom:1px solid var(--cream-dk);padding-bottom:2px;align-self:flex-start}
   </style>
 </head>
 <body>
@@ -122,8 +130,45 @@
   </div>
 </section>
 
+<!-- サービス説明 -->
+<section id="explainer" class="section alt-bg">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>サービス説明資料</h2>
+      <div class="section-rule"></div>
+      <div class="section-sub">Service Documents</div>
+    </div>
+    <div class="pdf-grid">
+      <a class="pdf-card" href="LeaPASS/pdf/leapass-presentation.pdf" target="_blank">
+        <div class="pdf-card-tag">GUIDE</div>
+        <div class="pdf-card-title">LeaPASS サービス紹介資料</div>
+        <div class="pdf-card-desc">コーチング内容・進め方を<br>まとめた紹介プレゼン資料</div>
+        <div class="pdf-card-btn">閲覧する</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/toeic-overview.pdf" target="_blank">
+        <div class="pdf-card-tag">OVERVIEW</div>
+        <div class="pdf-card-title">TOEIC学習ロードマップ概要</div>
+        <div class="pdf-card-desc">サービスで目指すスコアと<br>学習の全体像を解説</div>
+        <div class="pdf-card-btn">閲覧する</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/toeic-script.pdf" target="_blank">
+        <div class="pdf-card-tag">EXPLAINER</div>
+        <div class="pdf-card-title">「TOEICとは？」解説資料</div>
+        <div class="pdf-card-desc">試験の仕組みとスコアの<br>意味をわかりやすく紹介</div>
+        <div class="pdf-card-btn">閲覧する</div>
+      </a>
+      <a class="pdf-card" href="LeaPASS/pdf/toeic-mocktest.pdf" target="_blank">
+        <div class="pdf-card-tag">SAMPLE</div>
+        <div class="pdf-card-title">模擬問題ミニセット（解説付き）</div>
+        <div class="pdf-card-desc">セッションで使用する<br>教材のサンプル問題集</div>
+        <div class="pdf-card-btn">閲覧する</div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- 活用方法 -->
-<section class="section alt-bg">
+<section class="section">
   <div class="section-inner">
     <div class="section-head">
       <h2>活用方法</h2>

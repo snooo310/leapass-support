@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEICスコア伸び悩み診断 | LeaPASS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(135deg, #1B2B5B 0%, #2a3f80 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 24px;
+    max-width: 480px;
+    width: 100%;
+    padding: 32px 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .logo {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1B2B5B;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #1B2B5B;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 28px;
+  }
+  /* Progress */
+  .progress-wrap { margin-bottom: 24px; }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 8px;
+    background: #eee;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #F2A900, #ffcc44);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+  /* Question */
+  .question-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: #F2A900;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .question-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1B2B5B;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e8e8e8;
+    border-radius: 14px;
+    background: #fafafa;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.18s;
+    line-height: 1.5;
+  }
+  .choice-btn:hover {
+    border-color: #F2A900;
+    background: #fffbf0;
+    transform: translateY(-1px);
+  }
+  .choice-btn.selected {
+    border-color: #1B2B5B;
+    background: #f0f3ff;
+    color: #1B2B5B;
+    font-weight: 700;
+  }
+  /* Result */
+  .result { display: none; text-align: center; }
+  .result-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .result-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1B2B5B;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .result-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    text-align: left;
+    background: #f8f9ff;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 20px;
+  }
+  .tips-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1B2B5B;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  .tips { text-align: left; margin-bottom: 24px; }
+  .tip {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .tip-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    background: #F2A900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 1px;
+  }
+  .cta-box {
+    background: #1B2B5B;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+  .cta-label { font-size: 11px; color: #F2A900; font-weight: 700; margin-bottom: 6px; letter-spacing: 1px; }
+  .cta-title { font-size: 15px; color: #fff; font-weight: 700; line-height: 1.5; margin-bottom: 14px; }
+  .cta-btn {
+    display: block;
+    background: #F2A900;
+    color: #1B2B5B;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-bottom: 8px;
+  }
+  .retry-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+  }
+  /* Intro */
+  .intro { text-align: center; }
+  .intro-emoji { font-size: 48px; margin-bottom: 12px; }
+  .intro-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .start-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: #F2A900;
+    color: #1B2B5B;
+    font-size: 16px;
+    font-weight: 800;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .start-btn:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">LeaPASS</div>
+
+  <!-- Intro Screen -->
+  <div id="intro" class="intro">
+    <h1>あなたの弱点が<br>1分でわかる！</h1>
+    <p class="subtitle">TOEICスコア伸び悩み診断テスト</p>
+    <div class="intro-emoji">🎯</div>
+    <p class="intro-desc">
+      10問の質問に答えるだけで、<br>
+      あなたのTOEIC学習の「課題タイプ」が分かります。<br><br>
+      <strong>所要時間：約1〜2分</strong>
+    </p>
+    <button class="start-btn" onclick="startQuiz()">診断スタート →</button>
+  </div>
+
+  <!-- Quiz Screen -->
+  <div id="quiz" style="display:none;">
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="prog-text">1 / 10</span>
+        <span id="prog-pct">10%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="prog-fill" style="width:10%"></div>
+      </div>
+    </div>
+    <div class="question-num" id="q-num">Q1</div>
+    <div class="question-text" id="q-text"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="result" class="result">
+    <div class="result-badge" id="r-badge"></div>
+    <div class="result-title" id="r-title"></div>
+    <div class="result-desc" id="r-desc"></div>
+    <div class="tips-title">📚 あなたへの推奨学習法</div>
+    <div class="tips" id="r-tips"></div>
+    <div class="cta-box">
+      <div class="cta-label">🌟 5名限定</div>
+      <div class="cta-title">より詳しい分析は<br>無料個別相談で</div>
+      <a class="cta-btn" href="https://line.me/R/ti/p/%40897ekleq" target="_blank">▶ 無料相談を申し込む</a>
+    </div>
+    <button class="retry-btn" onclick="resetQuiz()">もう一度診断する</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "現在のTOEICスコアは？（未受験の場合は想定レベル）",
+    choices: ["〜500点台", "600〜700点台", "800点以上（または900点目指したい）"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "TOEIC対策を始めてどのくらい経ちますか？",
+    choices: ["まだ始めたばかり（3ヶ月未満）", "3ヶ月〜1年くらい", "1年以上続けているが伸び悩んでいる"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "1日の平均学習時間は？",
+    choices: ["30分未満", "30分〜1時間程度", "1時間以上確保できている"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "TOEIC対策で普段メインでやっていることは？",
+    choices: ["単語帳を読む・英語を聴く（インプット中心）", "公式問題集を解く（問題演習中心）", "解いた問題を復習・分析している"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "模試や問題集を解いたあと、どうしていますか？",
+    choices: ["答え合わせして終わり", "間違えた問題だけ解説を読む", "なぜ間違えたかを分析して対策を立てている"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "スコアが伸び悩んでいる原因として心当たりは？",
+    choices: ["英語の知識（単語・文法）が足りない気がする", "知識はあるのに本番で時間が足りなくなる", "問題はある程度解けるがスコアに波がある"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "リスニング（Part1〜4）の得点は？",
+    choices: ["半分以下しか取れていない", "6〜7割は取れるがPart3・4が不安", "ほぼ安定して取れている"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "リーディング（Part5〜7）の完走状況は？",
+    choices: ["いつも時間切れで最後まで解けない", "なんとか解き終わるがPart7は急いでいる", "余裕をもって完走できている"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "TOEIC学習で「計画を立てて取り組んでいる」と感じますか？",
+    choices: ["特に計画なく、その日気分でやっている", "大まかな計画はあるが、崩れがち", "目標とスケジュールが明確で進捗を確認している"],
+    scores: [1, 2, 3]
+  },
+  {
+    text: "今一番欲しいのは？",
+    choices: ["何から手をつければいいかの「道筋」", "間違いを正してくれる「フィードバック」", "本番に向けた「仕上げ・調整」のサポート"],
+    scores: [1, 2, 3]
+  }
+];
+
+const results = {
+  A: {
+    badge: "🔴 インプット不足型",
+    badgeColor: "#ff6b6b",
+    title: "基礎インプット\n不足型です",
+    desc: "英語の土台となる単語・文法・リスニング力がまだ発展途上の段階です。焦って問題演習を積み重ねても、土台が不安定なままでは点数が伸び悩みます。問題集を多く解くより、まず基礎固めが最速の近道です。",
+    tips: [
+      "金のフレーズ（金フレ）で頻出単語600語を定着させる",
+      "文法はでる1000でTOEIC特化の基礎固め",
+      "毎日15分の公式リスニング音声でシャドーイング習慣をつける"
+    ]
+  },
+  B: {
+    badge: "🟡 アウトプット不足型",
+    badgeColor: "#f0a500",
+    title: "アウトプット・\n実践不足型です",
+    desc: "知識は蓄えてきているのに、本番での時間管理や問題形式への対応が追いついていない状態です。「解けるはずなのに解けない」という経験が多いのではないでしょうか。",
+    tips: [
+      "公式問題集を「本番同様の環境」で時間を計って解く習慣をつける",
+      "解いた後の分析に最低、解答時間の50%以上をかける",
+      "Part3・4の先読みテクニックを習得して取りこぼしを減らす"
+    ]
+  },
+  C: {
+    badge: "🟢 戦略不足型",
+    badgeColor: "#2ecc71",
+    title: "戦略・マネジメント\n不足型です",
+    desc: "学習量も意欲も十分あるのに、スコアが安定しない・目標点に届かない——それは学習の「戦略」と「本番マネジメント」の問題かもしれません。スコア800以上は努力量より戦略の精度が結果を左右します。",
+    tips: [
+      "模試の点数をPart別に記録して弱点パターンを可視化する",
+      "時間配分戦略（Part5に何分・Part7にどのくらい）を明確に決める",
+      "高スコア帯に特化した問題（990点レベル）で追い込みをかける"
+    ]
+  }
+};
+
+let currentQ = 0;
+let totalScore = 0;
+
+function startQuiz() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  const q = questions[idx];
+  document.getElementById('q-num').textContent = `Q${idx + 1}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('prog-text').textContent = `${idx + 1} / 10`;
+  const pct = Math.round(((idx + 1) / 10) * 100);
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  const choicesEl = document.getElementById('choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = c;
+    btn.onclick = () => selectChoice(btn, q.scores[i]);
+    choicesEl.appendChild(btn);
+  });
+}
+
+function selectChoice(btn, score) {
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  totalScore += score;
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < questions.length) {
+      showQuestion(currentQ);
+    } else {
+      showResult();
+    }
+  }, 300);
+}
+
+function showResult() {
+  document.getElementById('quiz').style.display = 'none';
+  const resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+
+  let type;
+  if (totalScore <= 16) type = 'A';
+  else if (totalScore <= 23) type = 'B';
+  else type = 'C';
+
+  const r = results[type];
+  const badge = document.getElementById('r-badge');
+  badge.textContent = r.badge;
+  badge.style.background = r.badgeColor + '22';
+  badge.style.color = r.badgeColor;
+
+  document.getElementById('r-title').textContent = r.title;
+  document.getElementById('r-desc').textContent = r.desc;
+
+  const tipsEl = document.getElementById('r-tips');
+  tipsEl.innerHTML = r.tips.map((t, i) =>
+    `<div class="tip"><div class="tip-icon">${i+1}</div><div>${t}</div></div>`
+  ).join('');
+}
+
+function resetQuiz() {
+  currentQ = 0;
+  totalScore = 0;
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('intro').style.display = 'block';
+}
+</script>
+</body>
+</html>

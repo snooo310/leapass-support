@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パラフレーズ単語アプリ | LeaPASS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(160deg, #1B2B5B 0%, #2a3f80 100%);
+    min-height: 100vh;
+    padding: 0 0 40px;
+  }
+
+  /* Header */
+  .app-header {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .app-logo { font-size: 13px; font-weight: 800; color: #F2A900; letter-spacing: 2px; }
+  .app-title { font-size: 15px; font-weight: 700; color: #fff; }
+  .stats-chip {
+    background: rgba(242,169,0,0.2);
+    color: #F2A900;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 99px;
+  }
+
+  /* Category Filter */
+  .filter-wrap {
+    padding: 14px 16px 10px;
+    overflow-x: auto;
+    display: flex;
+    gap: 8px;
+    scrollbar-width: none;
+  }
+  .filter-wrap::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 2px solid rgba(255,255,255,0.25);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .cat-btn.active {
+    background: #F2A900;
+    border-color: #F2A900;
+    color: #1B2B5B;
+  }
+
+  /* Progress */
+  .progress-section { padding: 0 16px 14px; }
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  .prog-bar { height: 6px; background: rgba(255,255,255,0.15); border-radius: 99px; overflow: hidden; }
+  .prog-fill { height: 100%; background: linear-gradient(90deg, #F2A900, #ffdb70); border-radius: 99px; transition: width 0.4s ease; }
+
+  /* Flashcard */
+  .card-area {
+    padding: 0 16px 14px;
+    perspective: 1000px;
+  }
+  .flashcard {
+    background: #fff;
+    border-radius: 24px;
+    min-height: 260px;
+    padding: 28px 24px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.08s;
+    user-select: none;
+  }
+  .flashcard:active { transform: scale(0.98); }
+
+  .card-front, .card-back { }
+  .card-back { display: none; }
+
+  .card-cat {
+    font-size: 11px;
+    font-weight: 700;
+    color: #F2A900;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .card-num {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 12px;
+    color: #ccc;
+    font-weight: 700;
+  }
+
+  .card-label {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .card-en {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1B2B5B;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .card-ja {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+
+  .paraphrase-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: #ddd;
+    margin: 12px 0;
+  }
+  .card-para-label { font-size: 11px; color: #aaa; font-weight: 600; margin-bottom: 6px; }
+  .card-para-en {
+    font-size: 20px;
+    font-weight: 800;
+    color: #d4900a;
+    line-height: 1.4;
+  }
+
+  .tap-hint {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #ccc;
+    white-space: nowrap;
+  }
+
+  /* Sound button */
+  .sound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f4ff;
+    border: none;
+    border-radius: 99px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: #1B2B5B;
+    cursor: pointer;
+    margin-top: 8px;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .sound-btn:hover { background: #e0e8ff; }
+  .sound-btn.playing { background: #1B2B5B; color: #fff; }
+
+  /* Answer buttons */
+  .answer-btns {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px 14px;
+  }
+  .ans-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ans-btn:active { transform: scale(0.96); }
+  .btn-good { background: #e8faf0; color: #27ae60; }
+  .btn-good:hover { background: #27ae60; color: #fff; }
+  .btn-bad  { background: #fdeaea; color: #e74c3c; }
+  .btn-bad:hover  { background: #e74c3c; color: #fff; }
+
+  /* Action row */
+  .action-row {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px 14px;
+  }
+  .action-btn {
+    flex: 1;
+    padding: 11px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .action-btn:hover { border-color: #F2A900; color: #F2A900; }
+
+  /* Result screen */
+  #result-screen {
+    display: none;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .result-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+  }
+  .result-emoji { font-size: 56px; margin-bottom: 12px; }
+  .result-title { font-size: 22px; font-weight: 900; color: #1B2B5B; margin-bottom: 8px; }
+  .result-score { font-size: 48px; font-weight: 900; color: #F2A900; line-height: 1; margin-bottom: 4px; }
+  .result-label { font-size: 13px; color: #aaa; margin-bottom: 20px; }
+  .result-msg { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 24px; background: #f8f9ff; border-radius: 14px; padding: 16px; }
+  .retry-btn2 {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: #F2A900;
+    color: #1B2B5B;
+    font-size: 16px;
+    font-weight: 800;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .cta-link {
+    display: block;
+    padding: 13px;
+    background: #1B2B5B;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    margin-bottom: 8px;
+  }
+
+  /* Flip animation */
+  .flipped .card-front { display: none; }
+  .flipped .card-back { display: block; }
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="app-logo">LeaPASS</div>
+  <div class="app-title">パラフレーズ 100</div>
+  <div class="stats-chip" id="stats-chip">0/0</div>
+</div>
+
+<div class="filter-wrap" id="filter-wrap"></div>
+
+<div class="progress-section">
+  <div class="progress-row">
+    <span id="prog-label">0 / 0 枚</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="card-area">
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="card-num" id="card-num"></div>
+    <div class="card-front">
+      <div class="card-cat" id="card-cat"></div>
+      <div class="card-label">📄 本文表現</div>
+      <div class="card-en" id="card-front-en"></div>
+      <div class="card-ja" id="card-front-ja"></div>
+      <button class="sound-btn" id="sound-btn-front" onclick="event.stopPropagation(); speak('front')">🔊 発音を聞く</button>
+      <div class="tap-hint">タップして言い換えを確認 →</div>
+    </div>
+    <div class="card-back">
+      <div class="card-cat" id="card-cat-back"></div>
+      <div class="card-label">📄 本文表現</div>
+      <div class="card-en" id="card-back-src"></div>
+      <button class="sound-btn" id="sound-btn-src" onclick="event.stopPropagation(); speak('src')" style="margin-bottom:8px;">🔊 本文を聞く</button>
+      <div class="paraphrase-arrow">↓</div>
+      <div class="card-para-label">💬 設問での言い換え</div>
+      <div class="card-para-en" id="card-back-para"></div>
+      <button class="sound-btn" id="sound-btn-para" onclick="event.stopPropagation(); speak('para')">🔊 言い換えを聞く</button>
+    </div>
+  </div>
+</div>
+
+<div class="answer-btns" id="answer-btns" style="display:none;">
+  <button class="ans-btn btn-bad" onclick="answer(false)">👎 知らなかった</button>
+  <button class="ans-btn btn-good" onclick="answer(true)">👍 知ってた！</button>
+</div>
+
+<div class="answer-btns" id="flip-btns">
+  <div style="flex:1;"></div>
+</div>
+
+<div class="action-row">
+  <button class="action-btn" onclick="shuffleDeck()">🔀 シャッフル</button>
+  <button class="action-btn" onclick="resetDeck()">🔄 リセット</button>
+</div>
+
+<div id="result-screen">
+  <div class="result-card">
+    <div class="result-emoji" id="r-emoji"></div>
+    <div class="result-title">セット完了！</div>
+    <div class="result-score" id="r-score"></div>
+    <div class="result-label">正解率</div>
+    <div class="result-msg" id="r-msg"></div>
+    <button class="retry-btn2" onclick="retryWrong()">👎 間違えた問題だけ再挑戦</button>
+    <button class="retry-btn2" style="background:#1B2B5B;color:#fff;margin-bottom:10px;" onclick="resetDeck()">全問やり直す</button>
+    <a class="cta-link" href="https://line.me/R/ti/p/%40897ekleq" target="_blank">▶ 無料個別相談を申し込む</a>
+  </div>
+</div>
+
+<script>
+const allCards = [
+  // 人事・採用
+  {cat:"人事・採用",src:"be hired",para:"be recruited",ja:"採用される"},
+  {cat:"人事・採用",src:"resign from",para:"leave one's position",ja:"辞職する"},
+  {cat:"人事・採用",src:"be promoted",para:"advance to a higher position",ja:"昇進する"},
+  {cat:"人事・採用",src:"be transferred",para:"be relocated",ja:"異動・転勤する"},
+  {cat:"人事・採用",src:"be laid off",para:"lose one's job",ja:"解雇される"},
+  {cat:"人事・採用",src:"apply for a job",para:"submit an application",ja:"応募する"},
+  {cat:"人事・採用",src:"train new staff",para:"provide orientation",ja:"研修を行う"},
+  {cat:"人事・採用",src:"work overtime",para:"put in extra hours",ja:"残業する"},
+  {cat:"人事・採用",src:"take a day off",para:"be absent from work",ja:"休暇を取る"},
+  {cat:"人事・採用",src:"receive a raise",para:"get a salary increase",ja:"昇給する"},
+  // 会議・コミュニケーション
+  {cat:"会議・連絡",src:"hold a meeting",para:"gather for a discussion",ja:"会議を開く"},
+  {cat:"会議・連絡",src:"cancel a meeting",para:"call off a conference",ja:"会議を中止する"},
+  {cat:"会議・連絡",src:"postpone",para:"reschedule / delay",ja:"延期する"},
+  {cat:"会議・連絡",src:"inform",para:"notify / let ~ know",ja:"知らせる"},
+  {cat:"会議・連絡",src:"discuss",para:"talk about / address",ja:"話し合う"},
+  {cat:"会議・連絡",src:"agree on",para:"reach an agreement",ja:"合意する"},
+  {cat:"会議・連絡",src:"present",para:"give a presentation",ja:"発表する"},
+  {cat:"会議・連絡",src:"ask for feedback",para:"request comments",ja:"意見を求める"},
+  {cat:"会議・連絡",src:"respond to",para:"reply to / answer",ja:"返答する"},
+  {cat:"会議・連絡",src:"confirm",para:"verify / make sure",ja:"確認する"},
+  // 契約・取引
+  {cat:"契約・取引",src:"sign a contract",para:"finalize an agreement",ja:"契約を結ぶ"},
+  {cat:"契約・取引",src:"place an order",para:"make a purchase",ja:"注文する"},
+  {cat:"契約・取引",src:"cancel an order",para:"withdraw a request",ja:"注文を取り消す"},
+  {cat:"契約・取引",src:"deliver",para:"ship / send out",ja:"配送する"},
+  {cat:"契約・取引",src:"receive goods",para:"take delivery",ja:"商品を受け取る"},
+  {cat:"契約・取引",src:"return a product",para:"send back / exchange",ja:"返品する"},
+  {cat:"契約・取引",src:"pay in advance",para:"make an upfront payment",ja:"前払いする"},
+  {cat:"契約・取引",src:"offer a discount",para:"reduce the price",ja:"割引を提供する"},
+  {cat:"契約・取引",src:"renew a contract",para:"extend an agreement",ja:"契約を更新する"},
+  {cat:"契約・取引",src:"terminate",para:"end / discontinue",ja:"終了・解約する"},
+  // 財務・経理
+  {cat:"財務・経理",src:"increase",para:"rise / grow / go up",ja:"増加する"},
+  {cat:"財務・経理",src:"decrease",para:"fall / drop / decline",ja:"減少する"},
+  {cat:"財務・経理",src:"budget",para:"financial plan / allocation",ja:"予算"},
+  {cat:"財務・経理",src:"profit",para:"revenue / earnings",ja:"利益・収益"},
+  {cat:"財務・経理",src:"cost",para:"expense / charge / fee",ja:"費用"},
+  {cat:"財務・経理",src:"invoice",para:"bill / statement",ja:"請求書"},
+  {cat:"財務・経理",src:"reimburse",para:"pay back / refund",ja:"払い戻す"},
+  {cat:"財務・経理",src:"estimate",para:"quote / projection",ja:"見積もり"},
+  {cat:"財務・経理",src:"invest in",para:"allocate funds to",ja:"投資する"},
+  {cat:"財務・経理",src:"save money",para:"cut costs / reduce expenses",ja:"節約する"},
+  // 施設・設備
+  {cat:"施設・設備",src:"repair",para:"fix / maintain",ja:"修理する"},
+  {cat:"施設・設備",src:"renovate",para:"remodel / update",ja:"改装する"},
+  {cat:"施設・設備",src:"be under construction",para:"being built / renovated",ja:"工事中"},
+  {cat:"施設・設備",src:"be closed",para:"be unavailable / shut down",ja:"閉鎖している"},
+  {cat:"施設・設備",src:"be open",para:"be available / accessible",ja:"利用可能"},
+  {cat:"施設・設備",src:"move to a new location",para:"relocate",ja:"移転する"},
+  {cat:"施設・設備",src:"expand",para:"extend / grow larger",ja:"拡張する"},
+  {cat:"施設・設備",src:"install",para:"set up / put in place",ja:"設置する"},
+  {cat:"施設・設備",src:"parking is available",para:"there is space to park",ja:"駐車できる"},
+  {cat:"施設・設備",src:"free of charge",para:"at no cost / complimentary",ja:"無料で"},
+  // イベント
+  {cat:"イベント",src:"take place",para:"be held / occur",ja:"開催される"},
+  {cat:"イベント",src:"be scheduled",para:"be planned / arranged",ja:"予定されている"},
+  {cat:"イベント",src:"register for",para:"sign up for / enroll in",ja:"登録する"},
+  {cat:"イベント",src:"attend",para:"participate in / be present at",ja:"参加する"},
+  {cat:"イベント",src:"be sold out",para:"no longer be available",ja:"完売する"},
+  {cat:"イベント",src:"deadline",para:"due date / cutoff date",ja:"締め切り"},
+  {cat:"イベント",src:"in advance",para:"beforehand / ahead of time",ja:"事前に"},
+  {cat:"イベント",src:"starting from",para:"beginning on / effective ~",ja:"〜から始まる"},
+  {cat:"イベント",src:"until further notice",para:"indefinitely",ja:"追ってお知らせするまで"},
+  {cat:"イベント",src:"run for ~ hours",para:"last ~ hours",ja:"〜時間続く"},
+  // 旅行・出張
+  {cat:"旅行・出張",src:"book a hotel",para:"make a reservation",ja:"予約する"},
+  {cat:"旅行・出張",src:"check in",para:"arrive at the hotel",ja:"チェックインする"},
+  {cat:"旅行・出張",src:"board a flight",para:"get on a plane",ja:"搭乗する"},
+  {cat:"旅行・出張",src:"be delayed",para:"run late / not be on time",ja:"遅延する"},
+  {cat:"旅行・出張",src:"pick up ~ at the airport",para:"meet ~ upon arrival",ja:"空港で迎える"},
+  {cat:"旅行・出張",src:"travel by train",para:"take the train",ja:"電車で行く"},
+  {cat:"旅行・出張",src:"business trip",para:"work-related travel",ja:"出張"},
+  {cat:"旅行・出張",src:"itinerary",para:"schedule / travel plan",ja:"旅程"},
+  {cat:"旅行・出張",src:"meal is included",para:"food is provided",ja:"食事付き"},
+  {cat:"旅行・出張",src:"round-trip ticket",para:"return ticket",ja:"往復チケット"},
+  // マーケティング
+  {cat:"マーケ",src:"launch a product",para:"introduce / release",ja:"製品を発売する"},
+  {cat:"マーケ",src:"promote",para:"advertise / market",ja:"宣伝する"},
+  {cat:"マーケ",src:"survey",para:"questionnaire / poll",ja:"アンケート・調査"},
+  {cat:"マーケ",src:"be popular",para:"be in high demand",ja:"人気がある"},
+  {cat:"マーケ",src:"customer",para:"client / consumer",ja:"顧客"},
+  {cat:"マーケ",src:"feedback",para:"comment / review / response",ja:"意見"},
+  {cat:"マーケ",src:"attract customers",para:"draw in / appeal to clients",ja:"顧客を引き付ける"},
+  {cat:"マーケ",src:"expand the market",para:"reach new customers",ja:"市場を拡大する"},
+  {cat:"マーケ",src:"offer a trial",para:"provide a sample / test period",ja:"試用を提供する"},
+  {cat:"マーケ",src:"be on sale",para:"be discounted / reduced in price",ja:"セール中"},
+  // 健康・福利厚生
+  {cat:"健康・福利厚生",src:"medical checkup",para:"health examination",ja:"健康診断"},
+  {cat:"健康・福利厚生",src:"take sick leave",para:"be absent due to illness",ja:"病欠する"},
+  {cat:"健康・福利厚生",src:"health insurance",para:"medical coverage",ja:"健康保険"},
+  {cat:"健康・福利厚生",src:"gym membership",para:"fitness facility access",ja:"ジムの会員権"},
+  {cat:"健康・福利厚生",src:"work from home",para:"telecommute / work remotely",ja:"在宅勤務"},
+  {cat:"健康・福利厚生",src:"flexible hours",para:"adjustable schedule",ja:"柔軟な勤務時間"},
+  {cat:"健康・福利厚生",src:"employee benefits",para:"perks / welfare programs",ja:"福利厚生"},
+  {cat:"健康・福利厚生",src:"vacation days",para:"paid time off / annual leave",ja:"有給休暇"},
+  {cat:"健康・福利厚生",src:"wellness program",para:"health initiative",ja:"健康増進プログラム"},
+  {cat:"健康・福利厚生",src:"retire",para:"stop working / leave the workforce",ja:"退職する"},
+  // テクノロジー
+  {cat:"テクノロジー",src:"update software",para:"install the latest version",ja:"ソフトを更新する"},
+  {cat:"テクノロジー",src:"technical issue",para:"malfunction / error",ja:"技術的問題"},
+  {cat:"テクノロジー",src:"back up data",para:"save a copy / store information",ja:"バックアップする"},
+  {cat:"テクノロジー",src:"log in",para:"access one's account",ja:"ログインする"},
+  {cat:"テクノロジー",src:"password",para:"access code / credentials",ja:"パスワード"},
+  {cat:"テクノロジー",src:"download",para:"save to device / retrieve",ja:"ダウンロードする"},
+  {cat:"テクノロジー",src:"go online",para:"connect to the internet",ja:"オンラインになる"},
+  {cat:"テクノロジー",src:"upgrade",para:"improve / enhance the system",ja:"アップグレードする"},
+  {cat:"テクノロジー",src:"send an email",para:"contact by electronic message",ja:"メールを送る"},
+  {cat:"テクノロジー",src:"system maintenance",para:"scheduled downtime",ja:"システムメンテナンス"},
+];
+
+const categories = ["すべて", ...new Set(allCards.map(c => c.cat))];
+let activeCat = "すべて";
+let deck = [];
+let currentIdx = 0;
+let goodCount = 0;
+let isFlipped = false;
+let wrongCards = [];
+
+function getFilteredCards() {
+  return activeCat === "すべて" ? [...allCards] : allCards.filter(c => c.cat === activeCat);
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function initDeck(cards) {
+  deck = cards;
+  currentIdx = 0;
+  goodCount = 0;
+  wrongCards = [];
+  isFlipped = false;
+  document.getElementById('result-screen').style.display = 'none';
+  document.getElementById('flashcard').style.display = 'block';
+  document.getElementById('answer-btns').style.display = 'none';
+  showCard();
+}
+
+function showCard() {
+  if (currentIdx >= deck.length) { showResult(); return; }
+  const c = deck[currentIdx];
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  isFlipped = false;
+  document.getElementById('answer-btns').style.display = 'none';
+
+  document.getElementById('card-cat').textContent = c.cat;
+  document.getElementById('card-cat-back').textContent = c.cat;
+  document.getElementById('card-num').textContent = `${currentIdx + 1} / ${deck.length}`;
+  document.getElementById('card-front-en').textContent = c.src;
+  document.getElementById('card-front-ja').textContent = c.ja;
+  document.getElementById('card-back-src').textContent = c.src;
+  document.getElementById('card-back-para').textContent = c.para;
+
+  // Progress
+  const pct = Math.round((currentIdx / deck.length) * 100);
+  document.getElementById('prog-label').textContent = `${currentIdx} / ${deck.length} 枚`;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  updateStats();
+}
+
+function flipCard() {
+  if (isFlipped) return;
+  document.getElementById('flashcard').classList.add('flipped');
+  isFlipped = true;
+  document.getElementById('answer-btns').style.display = 'flex';
+}
+
+function answer(good) {
+  if (good) goodCount++;
+  else wrongCards.push(deck[currentIdx]);
+  currentIdx++;
+  if (currentIdx >= deck.length) { showResult(); return; }
+  showCard();
+}
+
+function showResult() {
+  document.getElementById('flashcard').style.display = 'none';
+  document.getElementById('answer-btns').style.display = 'none';
+  document.getElementById('result-screen').style.display = 'block';
+  const pct = Math.round((goodCount / deck.length) * 100);
+  document.getElementById('r-score').textContent = pct + '%';
+  document.getElementById('r-emoji').textContent = pct >= 80 ? '🏆' : pct >= 50 ? '💪' : '📚';
+  const msg = pct >= 80
+    ? 'すばらしい！この調子で全カテゴリ制覇を目指しましょう。実際の問題でも意識してパラフレーズを探す習慣をつけると更に効果的です。'
+    : pct >= 50
+    ? '半分以上正解！間違えたカードを集中的に復習して定着させましょう。'
+    : '最初は難しくて当然。繰り返しが力になります。間違えたカードだけ再挑戦してみましょう！';
+  document.getElementById('r-msg').textContent = msg;
+  document.getElementById('prog-label').textContent = `${deck.length} / ${deck.length} 枚`;
+  document.getElementById('prog-pct').textContent = '100%';
+  document.getElementById('prog-fill').style.width = '100%';
+  updateStats();
+}
+
+function retryWrong() {
+  if (wrongCards.length === 0) { alert('間違えたカードはありません！'); return; }
+  initDeck([...wrongCards]);
+}
+
+function shuffleDeck() { initDeck(shuffle(getFilteredCards())); }
+function resetDeck() { initDeck(getFilteredCards()); }
+
+function updateStats() {
+  document.getElementById('stats-chip').textContent = `✓ ${goodCount} / ${deck.length}`;
+}
+
+function speak(part) {
+  if (!window.speechSynthesis) { alert('このブラウザは音声読み上げに対応していません'); return; }
+  const c = deck[currentIdx];
+  if (!c) return;
+  const text = part === 'front' || part === 'src' ? c.src : c.para;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'en-US';
+  utt.rate = 0.85;
+  const btnId = part === 'front' ? 'sound-btn-front' : part === 'src' ? 'sound-btn-src' : 'sound-btn-para';
+  const btn = document.getElementById(btnId);
+  btn.classList.add('playing');
+  btn.textContent = '🔊 再生中...';
+  utt.onend = () => { btn.classList.remove('playing'); btn.textContent = '🔊 ' + (part === 'para' ? '言い換えを聞く' : part === 'src' ? '本文を聞く' : '発音を聞く'); };
+  window.speechSynthesis.speak(utt);
+}
+
+// Build category filter
+const fw = document.getElementById('filter-wrap');
+categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn' + (cat === activeCat ? ' active' : '');
+  btn.textContent = cat;
+  btn.onclick = () => {
+    activeCat = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    initDeck(getFilteredCards());
+  };
+  fw.appendChild(btn);
+});
+
+// Start
+initDeck(getFilteredCards());
+</script>
+</body>
+</html>

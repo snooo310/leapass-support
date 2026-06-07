@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC逆算ロードマップ | LeaPASS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(160deg, #1B2B5B 0%, #2a4080 100%);
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 28px 0 24px;
+    color: #fff;
+  }
+  .logo { font-size: 12px; font-weight: 800; letter-spacing: 3px; color: #F2A900; margin-bottom: 10px; }
+  .header h1 { font-size: 24px; font-weight: 900; line-height: 1.4; margin-bottom: 6px; }
+  .header p { font-size: 13px; color: rgba(255,255,255,0.65); }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    max-width: 500px;
+    margin: 0 auto 16px;
+    padding: 24px 20px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.25);
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: #1B2B5B;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  /* Score chips */
+  .score-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .score-chip {
+    padding: 12px 10px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 800;
+    color: #aaa;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .score-chip small {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 2px;
+    color: #bbb;
+  }
+  .score-chip:hover { border-color: #F2A900; color: #1B2B5B; }
+  .score-chip.active {
+    border-color: #1B2B5B;
+    background: #1B2B5B;
+    color: #fff;
+  }
+  .score-chip.active small { color: rgba(255,255,255,0.7); }
+
+  /* Date inputs */
+  .date-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px; }
+  .date-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1B2B5B;
+    margin-bottom: 6px;
+  }
+  input[type="date"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #333;
+    background: #fafafa;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  input[type="date"]:focus {
+    outline: none;
+    border-color: #F2A900;
+    background: #fff;
+  }
+
+  .calc-btn {
+    width: 100%;
+    padding: 17px;
+    background: #F2A900;
+    color: #1B2B5B;
+    font-size: 16px;
+    font-weight: 900;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: transform 0.1s, opacity 0.15s;
+  }
+  .calc-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .calc-btn:active { transform: translateY(0) scale(0.98); }
+
+  /* Result */
+  #result { display: none; max-width: 500px; margin: 0 auto; }
+
+  .days-card {
+    background: linear-gradient(135deg, #1B2B5B, #2a4080);
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    margin-bottom: 14px;
+    color: #fff;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.3);
+  }
+  .days-big { font-size: 64px; font-weight: 900; color: #F2A900; line-height: 1; }
+  .days-unit { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.8); margin-top: 4px; }
+  .exam-info { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 8px; }
+  .phase-pill {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 6px 18px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .today-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 22px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+  .today-card h2 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1B2B5B;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .task-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    padding: 10px 12px;
+    background: #f8f9ff;
+    border-radius: 12px;
+  }
+  .task-no {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    background: #F2A900;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 900;
+    color: #1B2B5B;
+    margin-top: 1px;
+  }
+
+  .timeline-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 22px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+  .timeline-card h2 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1B2B5B;
+    margin-bottom: 18px;
+  }
+  .tl { position: relative; padding-left: 22px; }
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: #eee;
+  }
+  .tl-row { position: relative; margin-bottom: 16px; }
+  .tl-row:last-child { margin-bottom: 0; }
+  .tl-dot {
+    position: absolute;
+    left: -22px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ddd;
+    border: 2px solid #fff;
+  }
+  .tl-dot.now { border: 3px solid #fff; box-shadow: 0 0 0 3px #F2A900; }
+  .tl-range { font-size: 11px; color: #bbb; font-weight: 700; margin-bottom: 2px; }
+  .tl-range.now { color: #F2A900; }
+  .tl-phase { font-size: 13px; color: #999; }
+  .tl-phase.now { color: #1B2B5B; font-weight: 700; font-size: 14px; }
+
+  .cta-card {
+    background: linear-gradient(135deg, #1B2B5B, #2a4080);
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .cta-card p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 16px; }
+  .cta-card a {
+    display: block;
+    background: #F2A900;
+    color: #1B2B5B;
+    font-size: 15px;
+    font-weight: 900;
+    padding: 15px;
+    border-radius: 13px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  .back-btn {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    margin-bottom: 30px;
+    padding: 6px;
+  }
+
+  .error-msg {
+    background: #fff0f0;
+    border: 1.5px solid #ffaaaa;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #c0392b;
+    margin-top: 10px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">LeaPASS</div>
+  <h1>TOEIC逆算<br>ロードマップ</h1>
+  <p>受験日を入力するだけで、今日やるべきことがわかる</p>
+</div>
+
+<!-- Input Card -->
+<div class="card" id="input-card">
+
+  <div style="margin-bottom: 20px;">
+    <div class="section-title">🎯 目標スコアを選ぶ</div>
+    <div class="score-grid" id="score-grid">
+      <div class="score-chip active" data-score="600">600点<small>突破したい</small></div>
+      <div class="score-chip" data-score="730">730点<small>突破したい</small></div>
+      <div class="score-chip" data-score="860">860点<small>突破したい</small></div>
+      <div class="score-chip" data-score="900">900点<small>超えたい</small></div>
+    </div>
+  </div>
+
+  <div class="date-row">
+    <div class="date-field">
+      <label>📅 今日の日付</label>
+      <input type="date" id="today-date">
+    </div>
+    <div class="date-field">
+      <label>📝 TOEIC受験日</label>
+      <input type="date" id="exam-date">
+    </div>
+  </div>
+
+  <button class="calc-btn" onclick="calculate()">今日やるべきことを見る →</button>
+  <div class="error-msg" id="error-msg">受験日は今日より未来の日付にしてください。</div>
+</div>
+
+<!-- Result -->
+<div id="result">
+  <div class="days-card">
+    <div class="days-big" id="r-days">—</div>
+    <div class="days-unit">日後が本番</div>
+    <div class="exam-info" id="r-exam-info"></div>
+    <div class="phase-pill" id="r-phase-pill"></div>
+  </div>
+
+  <div class="today-card">
+    <h2>⚡ 今日やるべきこと</h2>
+    <ul class="task-list" id="r-tasks"></ul>
+  </div>
+
+  <div class="timeline-card">
+    <h2>📅 残り日数別フェーズ</h2>
+    <div class="tl" id="r-timeline"></div>
+  </div>
+
+  <div class="cta-card">
+    <p>「このロードマップ通りに<br>一人でやり続けられるか不安」<br>そう感じた方へ——</p>
+    <a href="https://line.me/R/ti/p/%40897ekleq" target="_blank">▶ 無料個別相談を申し込む</a>
+  </div>
+
+  <button class="back-btn" onclick="resetCalc()">← 日付を変えて再計算</button>
+</div>
+
+<script>
+// ─── Data ───────────────────────────────────────────────────
+const scoreData = {
+  600: {
+    phases: {
+      over90:  ["金フレ600語を毎日20単語ずつ進める", "Part5を1日5問 → 答え合わせ・解説精読", "公式リスニング音声でシャドーイング15分"],
+      s60to89: ["金フレ未定着単語を反復確認する", "公式問題集1回分を全Part通しで解く", "間違えた問題の解説を読んで原因を分類"],
+      s30to59: ["公式問題集2回分を時間計測で解く", "Part3・4の先読みを毎回実践する", "リーディング時間配分（Part5→12分）を固定"],
+      s14to29: ["模試1回分を2日ペースで仕上げる", "苦手Partを集中的に絞り込む", "間違えた問題パターンを暗記レベルまで定着"],
+      under14: ["コンディション管理を最優先にする", "新しい問題集には手を出さない", "今まで間違えた問題の復習 & 当日の時間配分確認"]
+    }
+  },
+  730: {
+    phases: {
+      over90:  ["金フレ全語 + でる1000で文法基礎固め", "Part3・4の先読みテクニックを習得する", "毎日シャドーイング20分（Part3・4音声使用）"],
+      s60to89: ["公式問題集3〜4回分を時間計測で解く", "復習ルーティン確立（解答時間の50%以上を復習に使う）", "Part7でパラフレーズを意識してマーカーを引く習慣"],
+      s30to59: ["模試5回分に取り組む", "スコアが不安定なPartを特定・集中強化", "Part7を完走するための時間配分を固める"],
+      s14to29: ["模試の分析に集中（解く量より質）", "弱点Partの頻出パターンを暗記する", "Part5を1問20秒ペースに体を慣らす"],
+      under14: ["コンディション管理を最優先にする", "苦手な問題パターンの最終確認のみ", "当日の持ち物・開場時間・時間配分を頭に入れる"]
+    }
+  },
+  860: {
+    phases: {
+      over90:  ["上級単語帳（TEX加藤の特急）を開始", "Part7精読力強化（1段落を完全理解する練習）", "リスニング正答率を問題ごとに記録・分析"],
+      s60to89: ["公式問題集5〜6回分 + 正答率90%を目指す", "間違えた理由を3種類に分類する（知識・勘違い・時間）", "Part6の文脈問題（文挿入）を徹底対策"],
+      s30to59: ["模試6回分を本番環境で解く", "高難度問題（TL990等）で追い込む", "Part5語彙問題の正答率を上げる"],
+      s14to29: ["模試のPart別スコアを分析・弱点を最終絞り込み", "本番でのメンタル管理法を決める", "1問ミスの原因パターンを記録・対策"],
+      under14: ["新しい問題集は一切やらない", "今まで解いた模試の間違い問題のみ復習", "当日の時間配分戦略を再確認"]
+    }
+  },
+  900: {
+    phases: {
+      over90:  ["990点レベル問題集を開始・全Partの正答率を記録", "弱点パターンを徹底分析してノートにまとめる", "リスニングは正答率95%を目標に音声分析"],
+      s60to89: ["弱点パターンを徹底排除・同じミスを2度しない仕組みを作る", "Part7トリプルパッセージを毎日1セット解く", "Part5を1問15秒以内に解くスピード強化"],
+      s30to59: ["模試8回分 + 1問ミスの原因分析を徹底", "990点模試の正答率を記録してグラフ化", "Part3・4で聞き取れなかった音声を反復練習"],
+      s14to29: ["自分の弱点パターンリストを作り最終確認", "コンディション管理（睡眠・食事）を意識する", "本番シミュレーション（同じ時間帯に模試を解く）"],
+      under14: ["新しいことは一切やらない", "強みを確認して自信をつける", "当日の持ち物・マークシートの塗り方を確認"]
+    }
+  }
+};
+
+const phases = [
+  { key: "over90",  range: "90日以上",  name: "基礎固めフェーズ", color: "#27ae60" },
+  { key: "s60to89", range: "60〜89日", name: "強化フェーズ",      color: "#2980b9" },
+  { key: "s30to59", range: "30〜59日", name: "仕上げフェーズ",    color: "#e67e22" },
+  { key: "s14to29", range: "14〜29日", name: "最終調整フェーズ",  color: "#c0392b" },
+  { key: "under14", range: "〜13日",   name: "直前フェーズ",      color: "#8e44ad" }
+];
+
+function getPhaseKey(days) {
+  if (days >= 90) return "over90";
+  if (days >= 60) return "s60to89";
+  if (days >= 30) return "s30to59";
+  if (days >= 14) return "s14to29";
+  return "under14";
+}
+
+// ─── Score chips ─────────────────────────────────────────────
+let selectedScore = 600;
+document.querySelectorAll('.score-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.score-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    selectedScore = parseInt(chip.dataset.score);
+  });
+});
+
+// ─── Default dates ───────────────────────────────────────────
+(function initDates() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+
+  document.getElementById('today-date').value = fmt(now);
+
+  const exam = new Date(now);
+  exam.setMonth(exam.getMonth() + 3);
+  document.getElementById('exam-date').value = fmt(exam);
+})();
+
+// ─── Calculate ───────────────────────────────────────────────
+function calculate() {
+  const todayVal = document.getElementById('today-date').value;
+  const examVal  = document.getElementById('exam-date').value;
+  const errEl    = document.getElementById('error-msg');
+
+  if (!todayVal || !examVal) { errEl.style.display = 'block'; errEl.textContent = '日付を両方入力してください。'; return; }
+
+  const today = new Date(todayVal);
+  const exam  = new Date(examVal);
+  const diff  = Math.round((exam - today) / 86400000);
+
+  if (diff <= 0) { errEl.style.display = 'block'; errEl.textContent = '受験日は今日より未来の日付にしてください。'; return; }
+  errEl.style.display = 'none';
+
+  const phaseKey = getPhaseKey(diff);
+  const phaseInfo = phases.find(p => p.key === phaseKey);
+  const tasks = scoreData[selectedScore].phases[phaseKey];
+
+  document.getElementById('input-card').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  // Days banner
+  document.getElementById('r-days').textContent = diff;
+  document.getElementById('r-exam-info').textContent =
+    `${exam.getFullYear()}年${exam.getMonth()+1}月${exam.getDate()}日 受験 | 目標 ${selectedScore}点突破`;
+
+  const pill = document.getElementById('r-phase-pill');
+  pill.textContent = phaseInfo.name;
+  pill.style.background = phaseInfo.color + '33';
+  pill.style.color = phaseInfo.color;
+  pill.style.border = `2px solid ${phaseInfo.color}`;
+
+  // Tasks
+  document.getElementById('r-tasks').innerHTML = tasks.map((t, i) =>
+    `<li class="task-item"><div class="task-no">${i+1}</div><div>${t}</div></li>`
+  ).join('');
+
+  // Timeline
+  document.getElementById('r-timeline').innerHTML = phases.map(p => {
+    const isNow = p.key === phaseKey;
+    return `<div class="tl-row">
+      <div class="tl-dot ${isNow ? 'now' : ''}" style="${isNow ? `background:${p.color}` : ''}"></div>
+      <div class="tl-range ${isNow ? 'now' : ''}" style="${isNow ? `color:${p.color}` : ''}">${p.range}</div>
+      <div class="tl-phase ${isNow ? 'now' : ''}">${p.name}${isNow ? ' ← 今ここ' : ''}</div>
+    </div>`;
+  }).join('');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetCalc() {
+  document.getElementById('input-card').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
