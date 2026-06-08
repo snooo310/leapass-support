@@ -50,6 +50,10 @@
     .howto-num{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:600;line-height:1;margin-bottom:8px}
     .howto-title{font-family:'Noto Serif JP',serif;font-size:16px;font-weight:600;color:var(--brown-dk);letter-spacing:2px;margin-bottom:12px}
     .howto-desc{font-size:13.5px;color:var(--brown-md);line-height:2}
+    a.howto-card{text-decoration:none;color:inherit;display:block;transition:transform .25s,box-shadow .25s}
+    a.howto-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(44,26,12,.12)}
+    .howto-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:3px;color:var(--brown-dk);border-bottom:1px solid var(--gold);padding-bottom:2px}
+    .howto-link::after{content:'';display:inline-block;width:14px;height:1px;background:var(--gold)}
     /* CTA */
     .cta-section{background:var(--brown-dk);padding:72px 60px;text-align:center}
     .cta-inner{max-width:600px;margin:0 auto}
@@ -61,6 +65,8 @@
     .site-footer{background:var(--brown-dk);border-top:1px solid rgba(196,154,108,.15);color:var(--gold);text-align:center;padding:36px 60px}
     .footer-logo{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:8px;margin-bottom:4px}
     .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
+    .footer-lp-link{display:inline-block;font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(196,154,108,.4);padding-bottom:2px;margin-bottom:14px;transition:color .2s}
+    .footer-lp-link:hover{color:var(--white)}
     .alt-bg{background:var(--cream-dk)}
     /* PDF CARDS */
     .pdf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -108,23 +114,43 @@
     <div class="service-grid">
       <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1437.png" alt=""></div>
-        <div class="service-card-title">Zoom 面談</div>
-        <div class="service-card-desc">週1回のオンラインセッション。<br>学習状況の確認・質問・<br>プラン調整を行います。</div>
+        <div class="service-card-title">Zoom 面談（月2回）</div>
+        <div class="service-card-desc">月2回のオンラインセッション。<br>学習状況の確認・質問・<br>プラン調整を行います。</div>
       </div>
       <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt=""></div>
-        <div class="service-card-title">LINE サポート</div>
-        <div class="service-card-desc">毎日のチャットで<br>疑問をすぐに解消。<br>24時間相談OK。</div>
+        <div class="service-card-title">チャットサポート</div>
+        <div class="service-card-desc">LINEでの日常的な質問対応に加え、<br>進捗報告・教材共有はDiscordで<br>一元管理できます。</div>
       </div>
       <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1455.png" alt=""></div>
-        <div class="service-card-title">勉強コミュニティ</div>
-        <div class="service-card-desc">仲間と一緒に学ぶ<br>オンライン勉強会で<br>モチベーション維持。</div>
+        <div class="service-card-title">勉強コミュニティ（Discord）</div>
+        <div class="service-card-desc">Discordコミュニティで<br>仲間と進捗を共有し<br>モチベーションを維持。</div>
       </div>
       <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/ic057.png" alt=""></div>
-        <div class="service-card-title">目標スコア達成</div>
-        <div class="service-card-desc">明確な指標で<br>スコアアップを<br>確実に実現。</div>
+        <div class="service-card-title">目標スコア設計</div>
+        <div class="service-card-desc">明確な指標と計画で<br>スコアアップを<br>確実に実現。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1399.png" alt=""></div>
+        <div class="service-card-title">個別カリキュラム作成</div>
+        <div class="service-card-desc">現状のスコア・目標から<br>あなた専用の学習プランを<br>コーチが設計します。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1456.png" alt=""></div>
+        <div class="service-card-title">教材ライブラリ提供</div>
+        <div class="service-card-desc">コーチ作成のPDF教材・<br>診断ツール・動画解説を<br>サイト上でいつでも確認。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1766.png" alt=""></div>
+        <div class="service-card-title">模試・添削フィードバック</div>
+        <div class="service-card-desc">模試の結果や演習を<br>コーチが分析し<br>具体的な改善点を提示。</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1776.png" alt=""></div>
+        <div class="service-card-title">キャリア相談対応</div>
+        <div class="service-card-desc">スコア達成後の<br>キャリア・留学・転職の<br>相談にも対応します。</div>
       </div>
     </div>
   </div>
@@ -176,42 +202,46 @@
       <div class="section-sub">How to Use</div>
     </div>
     <div class="howto-grid">
-      <div class="howto-card">
+      <a class="howto-card" href="https://www.canva.com/design/DAG_kzyloGI/T6h-yKE3SG7LrbIrUoJySQ/edit" target="_blank">
         <div class="howto-num">01</div>
         <div class="howto-title">サービスの活用方法</div>
         <div class="howto-desc">
-          Zoom面談では毎週の目標設定・進捗確認・質問対応を行います。
-          セッション前に学習記録（模試スコア・取り組んだ問題数）をLINEで報告してください。
-          コーチが事前に準備してセッションを最大限活用できます。
+          月2回のZoom面談では目標設定・進捗確認・質問対応を行います。
+          学習記録（模試スコア・取り組んだ問題数）はDiscordで報告してください。
+          コーチが事前に準備し、セッションを最大限活用できます。
         </div>
-      </div>
-      <div class="howto-card">
+        <div class="howto-link">資料を見る</div>
+      </a>
+      <a class="howto-card" href="https://www.canva.com/design/DAHAeDtPB6I/ZXchOrpylNorIQ2UZW5vWA/edit" target="_blank">
         <div class="howto-num">02</div>
         <div class="howto-title">このサイトの使い方</div>
         <div class="howto-desc">
           「学習教材」から復習ロードマップ・PDF資料を確認できます。
-          「TOEIC対策」では学習ガイドと自習教材を参照してください。
+          「TOEIC対策」では自習ガイドと診断ツールを参照してください。
           「お知らせ」で最新情報を定期的にチェックしましょう。
         </div>
-      </div>
-      <div class="howto-card">
+        <div class="howto-link">資料を見る</div>
+      </a>
+      <a class="howto-card" href="https://www.canva.com/design/DAHAYRbLGz0/BWY2RiODXzkQuEsq9AKkfw/edit" target="_blank">
         <div class="howto-num">03</div>
         <div class="howto-title">連絡方法</div>
         <div class="howto-desc">
-          質問・相談・進捗報告は全てLINEで受け付けています。
-          Zoom面談の日程変更もLINEから連絡してください。
+          日常的な質問はLINE、進捗報告や教材共有はDiscordで受け付けています。
+          Zoom面談の日程変更もチャットからご連絡ください。
           緊急の場合はLINE通話でも対応します。
         </div>
-      </div>
-      <div class="howto-card">
+        <div class="howto-link">資料を見る</div>
+      </a>
+      <a class="howto-card" href="https://www.canva.com/design/DAHAYYbXZiM/IJhfivdz-I3tU306rcNpSw/edit" target="_blank">
         <div class="howto-num">04</div>
         <div class="howto-title">コミュニティの活用</div>
         <div class="howto-desc">
-          グループLINEで他の受講生と繋がり、学習進捗を共有しましょう。
-          月1回のオンライン勉強会（任意参加）でモチベーションを維持できます。
+          Discordコミュニティで他の受講生と繋がり、学習進捗を共有しましょう。
+          オンライン勉強会（任意参加）でモチベーションを維持できます。
           スコアアップの報告はぜひコミュニティで共有してください。
         </div>
-      </div>
+        <div class="howto-link">資料を見る</div>
+      </a>
     </div>
   </div>
 </section>
@@ -225,6 +255,7 @@
 </section>
 
 <footer class="site-footer">
+  <a class="footer-lp-link" href="https://snooo310.github.io/leapass-lp/" target="_blank">LeaPASS LP（ランディングページ）はこちら</a>
   <div class="footer-logo">LeaPASS</div>
   <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>
 </footer>

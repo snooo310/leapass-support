@@ -50,6 +50,11 @@
     .guide-item-icon img{width:100%;object-fit:contain}
     .guide-item-title{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:600;color:var(--brown-dk);letter-spacing:1px;margin-bottom:8px}
     .guide-item-desc{font-size:12px;color:var(--brown-lt);line-height:1.8}
+    .guide-item-links{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+    .guide-pill{font-family:'Noto Serif JP',serif;font-size:10.5px;letter-spacing:2px;color:var(--brown-dk);border:1px solid var(--gold);border-radius:20px;padding:5px 14px;text-decoration:none;transition:background .2s,color .2s}
+    .guide-pill:hover{background:var(--gold);color:var(--white)}
+    .guide-item.is-static{cursor:default}
+    .guide-item.is-static:hover{transform:none;box-shadow:0 2px 12px rgba(44,26,12,.06)}
     .alt-bg{background:var(--cream-dk)}
     /* TOOL CARDS */
     .tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -68,6 +73,8 @@
     .site-footer{background:var(--brown-dk);border-top:1px solid rgba(196,154,108,.15);color:var(--gold);text-align:center;padding:36px 60px}
     .footer-logo{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:8px;margin-bottom:4px}
     .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
+    .footer-lp-link{display:inline-block;font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(196,154,108,.4);padding-bottom:2px;margin-bottom:14px;transition:color .2s}
+    .footer-lp-link:hover{color:var(--white)}
   </style>
 </head>
 <body>
@@ -133,25 +140,61 @@
       <div class="section-sub">Study Guide</div>
     </div>
     <div class="guide-grid">
-      <a class="guide-item" href="LeaPASS/pdf/toeic-intro.pdf" target="_blank">
+      <div class="guide-item is-static">
         <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1399.png" alt=""></div>
         <div class="guide-item-title">TOEICとは？</div>
         <div class="guide-item-desc">試験形式・スコアの仕組み・<br>何点を目指すべきかを解説</div>
-      </a>
-      <a class="guide-item" href="LeaPASS/pdf/toeic-intro.pdf" target="_blank">
+        <div class="guide-item-links">
+          <a class="guide-pill" href="https://www.canva.com/design/DAG_kxa-XKY/15N0qK_vkxmtZef1idyBVQ/edit" target="_blank">スライド</a>
+          <a class="guide-pill" href="https://www.loom.com/share/006296e36dfc4b85a555a86e623337da" target="_blank">動画</a>
+        </div>
+      </div>
+      <a class="guide-item" href="https://www.canva.com/design/DAG_k4aNRyg/Xwu6I6eWvEnrqW0oSKq5tg/edit" target="_blank">
         <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1695.png" alt=""></div>
         <div class="guide-item-title">なぜTOEIC？</div>
         <div class="guide-item-desc">TOEICがキャリアに<br>繋がる理由と活用法</div>
       </a>
-      <a class="guide-item" href="#" target="_blank">
+      <a class="guide-item" href="https://www.canva.com/design/DAG_kzW6LGg/KJ3A8w0i5C1PExvsUKFJNQ/edit" target="_blank">
+        <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1766.png" alt=""></div>
+        <div class="guide-item-title">復習方法</div>
+        <div class="guide-item-desc">模試後の復習で<br>大切な3つのステップ</div>
+      </a>
+      <div class="guide-item is-static">
+        <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1739.png" alt=""></div>
+        <div class="guide-item-title">復習ロードマップ<br>Part 1–4</div>
+        <div class="guide-item-desc">リスニングの<br>復習手順を図解</div>
+        <div class="guide-item-links">
+          <a class="guide-pill" href="https://www.canva.com/design/DAHGWmurQOY/VUsUK8g-TOgiPsSK70S3dQ/edit" target="_blank">スライド</a>
+          <a class="guide-pill" href="https://www.loom.com/share/17187b2c62b64cb4a7868c9ca16b3052" target="_blank">動画</a>
+        </div>
+      </div>
+      <div class="guide-item is-static">
+        <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1521.png" alt=""></div>
+        <div class="guide-item-title">復習ロードマップ<br>Part 5</div>
+        <div class="guide-item-desc">文法・語彙の<br>復習手順を図解</div>
+        <div class="guide-item-links">
+          <a class="guide-pill" href="https://www.canva.com/design/DAHGXERyuOQ/5HlbYy0hxhhfRhQE_GsPfQ/edit" target="_blank">スライド</a>
+          <a class="guide-pill" href="https://www.loom.com/share/dce9f638e0404b7e90411637bea0d737" target="_blank">動画</a>
+        </div>
+      </div>
+      <div class="guide-item is-static">
+        <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1524.png" alt=""></div>
+        <div class="guide-item-title">復習ロードマップ<br>Part 6–7</div>
+        <div class="guide-item-desc">長文読解の<br>復習手順を図解</div>
+        <div class="guide-item-links">
+          <a class="guide-pill" href="https://www.canva.com/design/DAHGXHrJcoQ/6uNVfBO4ZL4TrLndgeiryA/edit" target="_blank">スライド</a>
+          <a class="guide-pill" href="https://www.loom.com/share/7abcbf89025943269ceee0b5aa0d56a7" target="_blank">動画</a>
+        </div>
+      </div>
+      <a class="guide-item" href="https://canva.link/8j7aye14ihrbkof" target="_blank">
         <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1456.png" alt=""></div>
         <div class="guide-item-title">ノート活用方法</div>
         <div class="guide-item-desc">単語帳・文法帳の<br>効果的な作り方</div>
       </a>
-      <a class="guide-item" href="materials.html">
-        <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1739.png" alt=""></div>
-        <div class="guide-item-title">復習ロードマップ</div>
-        <div class="guide-item-desc">模試後の復習手順を<br>Part別に図解</div>
+      <a class="guide-item" href="https://canva.link/mxojlptj7j5fwdx" target="_blank">
+        <div class="guide-item-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1765.png" alt=""></div>
+        <div class="guide-item-title">自習おすすめ教材</div>
+        <div class="guide-item-desc">独学で差がつく<br>おすすめ教材セレクション</div>
       </a>
     </div>
   </div>
@@ -166,53 +209,53 @@
       <div class="section-sub">Diagnosis Tools &amp; Free Gifts</div>
     </div>
     <div class="tool-grid">
-      <a class="tool-card" href="LeaPASS/pdf/diagnosis-tool.html" target="_blank">
+      <a class="tool-card" href="https://whatistoeic.my.canva.site/" target="_blank">
         <div class="tool-card-tag">TOOL</div>
-        <div class="tool-card-title">弱点診断ツール</div>
-        <div class="tool-card-desc">質問に答えるだけで<br>あなたの弱点を診断</div>
+        <div class="tool-card-title">英語学習ロードマップ診断</div>
+        <div class="tool-card-desc">あなたに合った<br>学習ロードマップを診断</div>
         <div class="tool-card-btn">使ってみる</div>
       </a>
-      <a class="tool-card" href="LeaPASS/pdf/toeic-diagnosis.pdf" target="_blank">
-        <div class="tool-card-tag">PDF</div>
-        <div class="tool-card-title">TOEICスコア診断シート</div>
-        <div class="tool-card-desc">現在地と目標の<br>ギャップを可視化</div>
-        <div class="tool-card-btn">ダウンロード</div>
-      </a>
-      <a class="tool-card" href="LeaPASS/pdf/free-roadmap.pdf" target="_blank">
-        <div class="tool-card-tag">PDF</div>
-        <div class="tool-card-title">学習ロードマップ（無料特典）</div>
-        <div class="tool-card-desc">診断結果をもとにした<br>学習プランの一例</div>
-        <div class="tool-card-btn">ダウンロード</div>
-      </a>
-      <a class="tool-card" href="LeaPASS/pdf/roadmap-tool.html" target="_blank">
+      <a class="tool-card" href="https://beamish-sawine-f25dbd.netlify.app/" target="_blank">
         <div class="tool-card-tag">TOOL</div>
-        <div class="tool-card-title">ロードマップ作成ツール</div>
-        <div class="tool-card-desc">診断結果から<br>学習計画を自動生成</div>
+        <div class="tool-card-title">単語マスター</div>
+        <div class="tool-card-desc">頻出単語を<br>クイズ形式で習得</div>
         <div class="tool-card-btn">使ってみる</div>
       </a>
-      <a class="tool-card" href="LeaPASS/pdf/paraphrase-app.html" target="_blank">
+      <a class="tool-card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/snooo310/820df2a767091e3cf468a8c5564f91a3/raw/paraphrase_app.html" target="_blank">
         <div class="tool-card-tag">TOOL</div>
-        <div class="tool-card-title">パラフレーズ診断アプリ</div>
-        <div class="tool-card-desc">言い換え力を<br>クイズ形式でチェック</div>
+        <div class="tool-card-title">フレーズカード</div>
+        <div class="tool-card-desc">言い換え表現を<br>カード形式で復習</div>
         <div class="tool-card-btn">使ってみる</div>
       </a>
-      <a class="tool-card" href="LeaPASS/pdf/paraphrase100.pdf" target="_blank">
-        <div class="tool-card-tag">PDF</div>
-        <div class="tool-card-title">頻出パラフレーズ100選</div>
-        <div class="tool-card-desc">Part 7で差がつく<br>言い換え表現リスト</div>
-        <div class="tool-card-btn">ダウンロード</div>
+      <a class="tool-card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/snooo310/418638604c97021c16527e2f971d46f2/raw/diagnosis_tool.html" target="_blank">
+        <div class="tool-card-tag">TOOL</div>
+        <div class="tool-card-title">お悩みチェックアップ</div>
+        <div class="tool-card-desc">質問に答えるだけで<br>学習の悩みを診断</div>
+        <div class="tool-card-btn">使ってみる</div>
       </a>
-      <a class="tool-card" href="LeaPASS/pdf/pitfalls-illustrated.pdf" target="_blank">
-        <div class="tool-card-tag">PDF</div>
-        <div class="tool-card-title">間違えやすいポイント図解</div>
-        <div class="tool-card-desc">診断でよく出る<br>つまずきポイントを解説</div>
-        <div class="tool-card-btn">ダウンロード</div>
+      <a class="tool-card" href="https://htmlpreview.github.io/?https://gist.githubusercontent.com/snooo310/b6a0cc882c47dc3e55e55142985f4bae/raw/roadmap_tool.html" target="_blank">
+        <div class="tool-card-tag">TOOL</div>
+        <div class="tool-card-title">English ターゲットプランナー</div>
+        <div class="tool-card-desc">目標スコアから<br>逆算した学習計画を作成</div>
+        <div class="tool-card-btn">使ってみる</div>
       </a>
-      <a class="tool-card" href="LeaPASS/pdf/prereading-illustrated.pdf" target="_blank">
-        <div class="tool-card-tag">PDF</div>
-        <div class="tool-card-title">事前リーディング図解集</div>
-        <div class="tool-card-desc">設問を先読みする<br>コツをイラストで紹介</div>
-        <div class="tool-card-btn">ダウンロード</div>
+      <a class="tool-card" href="https://toeic-diagn-aaxthvta.manus.space/" target="_blank">
+        <div class="tool-card-tag">TOOL</div>
+        <div class="tool-card-title">実力値診断</div>
+        <div class="tool-card-desc">現在の実力を<br>多角的にチェック</div>
+        <div class="tool-card-btn">使ってみる</div>
+      </a>
+      <a class="tool-card" href="https://toeicdiag-ca7ybt6l.manus.space/" target="_blank">
+        <div class="tool-card-tag">TOOL</div>
+        <div class="tool-card-title">教材診断</div>
+        <div class="tool-card-desc">あなたに合う<br>教材をタイプ別に診断</div>
+        <div class="tool-card-btn">使ってみる</div>
+      </a>
+      <a class="tool-card" href="https://leapass-bot.vercel.app/" target="_blank">
+        <div class="tool-card-tag">CHATBOT</div>
+        <div class="tool-card-title">LeaPASS Chatbot</div>
+        <div class="tool-card-desc">学習の疑問に<br>チャットでいつでも相談</div>
+        <div class="tool-card-btn">使ってみる</div>
       </a>
     </div>
   </div>
@@ -227,6 +270,7 @@
 </section>
 
 <footer class="site-footer">
+  <a class="footer-lp-link" href="https://snooo310.github.io/leapass-lp/" target="_blank">LeaPASS LP（ランディングページ）はこちら</a>
   <div class="footer-logo">LeaPASS</div>
   <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>
 </footer>

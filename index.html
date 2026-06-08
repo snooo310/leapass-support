@@ -210,6 +210,47 @@
     }
 
     /* ══════════════════════
+       ABOUT（LeaPASSとは）
+    ══════════════════════ */
+    .about-section {
+      background: var(--cream);
+      padding: 0 60px 84px;
+      text-align: center;
+    }
+    .about-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .about-text {
+      font-size: 14px;
+      color: var(--brown-md);
+      line-height: 2.1;
+      letter-spacing: .3px;
+      margin-bottom: 26px;
+    }
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--brown-dk);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 4px;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .about-link:hover { color: var(--brown-md); }
+    .about-link::after {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ══════════════════════
        お知らせ
     ══════════════════════ */
     .news-section { background: var(--cream); }
@@ -426,6 +467,19 @@
       letter-spacing: 2px;
       color: rgba(196,154,108,.38);
     }
+    .footer-lp-link {
+      display: inline-block;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(196,154,108,.4);
+      padding-bottom: 2px;
+      margin-bottom: 16px;
+      transition: color .2s;
+    }
+    .footer-lp-link:hover { color: var(--white); }
   </style>
 </head>
 <body>
@@ -494,6 +548,23 @@
     <div class="hero-badge">Member Site</div>
     <div class="hero-title">LeaPASS</div>
     <div class="hero-subtitle">TOEICで飛び立つ、理想へのPATH</div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════
+     ABOUT（LeaPASSとは）
+══════════════════════════════ -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="about-text">
+      LeaPASSは、TOEICスコアアップを目指す方のための伴走型コーチングサービスです。
+      Zoom面談・チャットサポート・コミュニティを通じて、学習計画から教材、
+      モチベーション維持までを一貫してサポートします。
+      このメンバーサイトでは、教材のダウンロードや学習ツールの利用、
+      最新情報の確認など、受講中に必要な情報をまとめてご案内しています。
+    </div>
+    <a class="about-link" href="https://snooo310.github.io/leapass-lp/" target="_blank">LeaPASSの詳細・お申し込みはLPへ</a>
   </div>
 </section>
 
@@ -591,6 +662,14 @@
       </div>
 
       <div class="profile-block">
+        <div class="profile-block-label">資　格</div>
+        <ul>
+          <li>TOEIC 985点</li>
+          <li>実用英語技能検定 準1級（英検準一級）</li>
+        </ul>
+      </div>
+
+      <div class="profile-block">
         <div class="profile-block-label">実　績</div>
         <ul>
           <li>個別指導塾講師（キッズ英会話・中高英語・受験英語・英検・TOEIC対策）</li>
@@ -623,6 +702,7 @@
      FOOTER
 ══════════════════════════════ -->
 <footer class="site-footer">
+  <a class="footer-lp-link" href="https://snooo310.github.io/leapass-lp/" target="_blank">LeaPASS LP（ランディングページ）はこちら</a>
   <div class="footer-logo">LeaPASS</div>
   <div class="footer-tagline">TOEIC Coaching</div>
   <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>

@@ -54,6 +54,11 @@
     .pdf-card-title{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:600;color:var(--brown-dk);line-height:1.5}
     .pdf-card-desc{font-size:12.5px;color:var(--brown-lt);line-height:1.8}
     .pdf-card-btn{margin-top:auto;font-size:11px;letter-spacing:3px;color:var(--brown-md);border-bottom:1px solid var(--cream-dk);padding-bottom:2px;align-self:flex-start}
+    .pdf-card-links{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+    .pdf-pill{font-family:'Noto Serif JP',serif;font-size:10.5px;letter-spacing:2px;color:var(--brown-dk);border:1px solid var(--gold);border-radius:20px;padding:5px 14px;text-decoration:none;transition:background .2s,color .2s}
+    .pdf-pill:hover{background:var(--gold);color:var(--white)}
+    .pdf-card.is-static{cursor:default}
+    .pdf-card.is-static:hover{transform:none;box-shadow:0 2px 14px rgba(44,26,12,.07)}
     .alt-bg{background:var(--cream-dk)}
     .cta-section{background:var(--brown-dk);padding:72px 60px;text-align:center}
     .cta-inner{max-width:600px;margin:0 auto}
@@ -63,6 +68,8 @@
     .site-footer{background:var(--brown-dk);border-top:1px solid rgba(196,154,108,.15);color:var(--gold);text-align:center;padding:36px 60px}
     .footer-logo{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;letter-spacing:8px;margin-bottom:4px}
     .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
+    .footer-lp-link{display:inline-block;font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(196,154,108,.4);padding-bottom:2px;margin-bottom:14px;transition:color .2s}
+    .footer-lp-link:hover{color:var(--white)}
   </style>
 </head>
 <body>
@@ -214,53 +221,71 @@
       <div class="section-sub">Self-Study Materials</div>
     </div>
     <div class="pdf-grid">
-      <a class="pdf-card" href="LeaPASS/pdf/hinsi-meishi.pdf" target="_blank">
-        <div class="pdf-card-tag">VOCABULARY</div>
-        <div class="pdf-card-title">品詞の見分け方：名詞編</div>
-        <div class="pdf-card-desc">品詞識別のコツを名詞から体系的に学ぶ</div>
-        <div class="pdf-card-btn">ダウンロード</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/hinsi-keiyoshi.pdf" target="_blank">
-        <div class="pdf-card-tag">VOCABULARY</div>
-        <div class="pdf-card-title">品詞の見分け方：形容詞編</div>
-        <div class="pdf-card-desc">形容詞・副詞の違いをマスターする教材</div>
-        <div class="pdf-card-btn">ダウンロード</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/hinsi-fukushi.pdf" target="_blank">
-        <div class="pdf-card-tag">VOCABULARY</div>
-        <div class="pdf-card-title">品詞の見分け方：副詞編</div>
-        <div class="pdf-card-desc">副詞の役割と位置を例文で完全攻略</div>
-        <div class="pdf-card-btn">ダウンロード</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/adjective-order.pdf" target="_blank">
+      <a class="pdf-card" href="https://canva.link/5k8qgi8ocbb41jc" target="_blank">
         <div class="pdf-card-tag">GRAMMAR</div>
-        <div class="pdf-card-title">形容詞の語順マスター</div>
-        <div class="pdf-card-desc">複数形容詞を正しく並べる順番を図解</div>
-        <div class="pdf-card-btn">ダウンロード</div>
+        <div class="pdf-card-title">TOEIC頻出文法</div>
+        <div class="pdf-card-desc">本番に頻出する文法ポイントをまとめて整理</div>
+        <div class="pdf-card-btn">資料を見る</div>
       </a>
-      <a class="pdf-card" href="LeaPASS/pdf/prepositions.pdf" target="_blank">
+      <div class="pdf-card is-static">
         <div class="pdf-card-tag">GRAMMAR</div>
-        <div class="pdf-card-title">前置詞イメージ図解</div>
-        <div class="pdf-card-desc">前置詞のニュアンスをイラストで直感的に理解</div>
-        <div class="pdf-card-btn">ダウンロード</div>
+        <div class="pdf-card-title">Part 5 出題17タイプ</div>
+        <div class="pdf-card-desc">Part 5で出題されるパターンを17タイプに分類して解説</div>
+        <div class="pdf-card-links">
+          <a class="pdf-pill" href="https://canva.link/23tn5f024t3pc1z" target="_blank">スライド</a>
+          <a class="pdf-pill" href="https://www.loom.com/share/de0267e5978443798fb4162d36c12ca2" target="_blank">解説動画</a>
+        </div>
+      </div>
+      <a class="pdf-card" href="https://canva.link/1lo1ettkj9ic8cv" target="_blank">
+        <div class="pdf-card-tag">EXPRESSIONS</div>
+        <div class="pdf-card-title">頻出慣用表現リスト</div>
+        <div class="pdf-card-desc">TOEICで繰り返し登場する慣用表現を厳選収録</div>
+        <div class="pdf-card-btn">資料を見る</div>
       </a>
-      <a class="pdf-card" href="LeaPASS/pdf/toeic-diagnosis.pdf" target="_blank">
-        <div class="pdf-card-tag">DIAGNOSIS</div>
-        <div class="pdf-card-title">TOEICスコア診断シート</div>
-        <div class="pdf-card-desc">現在地と目標スコアのギャップを可視化</div>
-        <div class="pdf-card-btn">ダウンロード</div>
+      <a class="pdf-card" href="https://canva.link/ame4jvr1cp5xubr" target="_blank">
+        <div class="pdf-card-tag">VOCABULARY</div>
+        <div class="pdf-card-title">品詞の見分け方</div>
+        <div class="pdf-card-desc">名詞・形容詞・副詞の識別ポイントを体系的に整理</div>
+        <div class="pdf-card-btn">資料を見る</div>
       </a>
-      <a class="pdf-card" href="LeaPASS/pdf/toeic-mocktest.pdf" target="_blank">
-        <div class="pdf-card-tag">PRACTICE</div>
-        <div class="pdf-card-title">模擬問題ミニセット（解説付き）</div>
-        <div class="pdf-card-desc">本番形式の演習問題と詳しい解説をセットで収録</div>
-        <div class="pdf-card-btn">ダウンロード</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/toeic-vocab200.xlsx" target="_blank">
+      <div class="pdf-card is-static">
+        <div class="pdf-card-tag">GRAMMAR</div>
+        <div class="pdf-card-title">絶対覚えたい英語文法5選</div>
+        <div class="pdf-card-desc">TOEIC Part 5頻出の文法パターンを厳選して解説</div>
+        <div class="pdf-card-links">
+          <a class="pdf-pill" href="https://docs.google.com/presentation/d/1BW0IrrZccQ1PxFdf5b-sbKiMS0Mlimjn/edit?slide=id.p1#slide=id.p1" target="_blank">スライド</a>
+          <a class="pdf-pill" href="https://www.loom.com/share/d43e846efcf54961a1a1deac3fce2ef6" target="_blank">解説動画</a>
+        </div>
+      </div>
+      <a class="pdf-card" href="https://www.canva.com/design/DAHKA0-Ofdk/T8fDqSy9OZtA792VNnupkA/view" target="_blank">
         <div class="pdf-card-tag">VOCAB LIST</div>
         <div class="pdf-card-title">TOEIC頻出単語200</div>
-        <div class="pdf-card-desc">本番に出やすい重要単語をリスト化（Excel）</div>
-        <div class="pdf-card-btn">ダウンロード</div>
+        <div class="pdf-card-desc">本番に出やすい重要単語をリスト化</div>
+        <div class="pdf-card-btn">資料を見る</div>
+      </a>
+      <a class="pdf-card" href="https://canva.link/0jp0p3r1n5gp76g" target="_blank">
+        <div class="pdf-card-tag">GRAMMAR</div>
+        <div class="pdf-card-title">前置詞イメージ</div>
+        <div class="pdf-card-desc">前置詞のニュアンスをイラストで直感的に理解</div>
+        <div class="pdf-card-btn">資料を見る</div>
+      </a>
+      <a class="pdf-card" href="https://canva.link/2tf4vzb3v7iy74r" target="_blank">
+        <div class="pdf-card-tag">GRAMMAR</div>
+        <div class="pdf-card-title">形容詞順番</div>
+        <div class="pdf-card-desc">複数の形容詞を正しく並べる順番を図解</div>
+        <div class="pdf-card-btn">資料を見る</div>
+      </a>
+      <a class="pdf-card" href="https://canva.link/9xpib7d5jfu171r" target="_blank">
+        <div class="pdf-card-tag">PRACTICE</div>
+        <div class="pdf-card-title">TOEIC模擬問題ミニセット（解説付き）</div>
+        <div class="pdf-card-desc">本番形式の演習問題と詳しい解説をセットで収録</div>
+        <div class="pdf-card-btn">資料を見る</div>
+      </a>
+      <a class="pdf-card" href="https://canva.link/natsnap21xurqrq" target="_blank">
+        <div class="pdf-card-tag">CHECKLIST</div>
+        <div class="pdf-card-title">TOEICチェックリスト</div>
+        <div class="pdf-card-desc">学習の進捗を記録する専用チェックリスト</div>
+        <div class="pdf-card-btn">資料を見る</div>
       </a>
     </div>
   </div>
@@ -275,6 +300,7 @@
 </section>
 
 <footer class="site-footer">
+  <a class="footer-lp-link" href="https://snooo310.github.io/leapass-lp/" target="_blank">LeaPASS LP（ランディングページ）はこちら</a>
   <div class="footer-logo">LeaPASS</div>
   <div class="footer-copy">© 2025 LeaPASS All Rights Reserved.</div>
 </footer>
