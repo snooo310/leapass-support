@@ -75,6 +75,31 @@
     .footer-copy{font-size:11px;letter-spacing:2px;color:rgba(196,154,108,.4);margin-top:8px}
     .footer-lp-link{display:inline-block;font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(196,154,108,.4);padding-bottom:2px;margin-bottom:14px;transition:color .2s}
     .footer-lp-link:hover{color:var(--white)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .site-header{padding:12px 20px}
+      .logo-main{font-size:26px;letter-spacing:5px}
+      .nav-icons{padding:20px 16px 24px;grid-template-columns:repeat(3,1fr);gap:12px}
+      .nav-circle{width:60px;height:60px}
+      .nav-label{font-size:10px;letter-spacing:1px}
+      .page-hero{padding:36px 20px}
+      .page-hero-title{font-size:26px;letter-spacing:3px}
+      .section{padding:48px 20px}
+      .section-head{margin-bottom:32px}
+      .section-head h2{font-size:20px;letter-spacing:3px}
+      .big-cards{grid-template-columns:1fr;gap:20px}
+      .big-card{padding:32px 24px}
+      .guide-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+      .tool-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+      .cta-section{padding:52px 20px}
+      .cta-title{font-size:18px;letter-spacing:2px}
+      .site-footer{padding:28px 20px}
+    }
+    @media(max-width:400px){
+      .guide-grid{grid-template-columns:1fr}
+      .tool-grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>

@@ -480,6 +480,34 @@
       transition: color .2s;
     }
     .footer-lp-link:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .site-header{padding:12px 20px}
+      .logo-main{font-size:26px;letter-spacing:5px}
+      .nav-icons{padding:20px 16px 24px;grid-template-columns:repeat(3,1fr);gap:12px}
+      .nav-circle{width:60px;height:60px;margin-bottom:8px}
+      .nav-label{font-size:10px;letter-spacing:1px}
+      .hero{height:300px}
+      .hero-title{font-size:44px;letter-spacing:5px}
+      .hero-subtitle{font-size:11px;letter-spacing:3px}
+      .section{padding:52px 20px}
+      .about-section{padding:0 20px 52px}
+      .section-head{margin-bottom:36px}
+      .section-head h2{font-size:20px;letter-spacing:3px}
+      .news-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+      .profile-section{padding:52px 20px}
+      .profile-grid{grid-template-columns:1fr;gap:36px}
+      .profile-photo{max-width:280px;margin:0 auto}
+      .profile-name{font-size:26px}
+      .cta-section{padding:52px 20px}
+      .cta-title{font-size:18px;letter-spacing:2px}
+      .site-footer{padding:28px 20px}
+    }
+    @media(max-width:400px){
+      .news-grid{grid-template-columns:1fr}
+      .hero-title{font-size:36px}
+    }
   </style>
 </head>
 <body>
