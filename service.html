@@ -18,7 +18,7 @@
     .logo-main{font-family:'Noto Serif JP',serif;font-size:34px;font-weight:700;color:var(--brown-dk);letter-spacing:8px;display:block;line-height:1.1}
     .logo-since{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:5px;color:var(--brown-lt);display:block;margin-top:2px}
     /* NAV ICONS */
-    .nav-icons{background:var(--cream);padding:36px 60px 44px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;text-align:center}
+    .nav-icons{background:var(--cream);padding:36px 60px 44px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center}
     .nav-item{cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;transition:transform .3s cubic-bezier(.22,.68,0,1.2)}
     .nav-item:hover{transform:translateY(-6px)}
     .nav-circle{width:80px;height:80px;border-radius:50%;margin:0 auto 10px;overflow:hidden;background:var(--white);display:flex;align-items:center;justify-content:center;border:1px solid rgba(44,26,12,.07);box-shadow:0 3px 14px rgba(44,26,12,.08);transition:box-shadow .3s}
@@ -82,6 +82,8 @@
       .site-header{padding:12px 20px}
       .logo-main{font-size:26px;letter-spacing:5px}
       .nav-icons{padding:20px 16px 24px;grid-template-columns:repeat(3,1fr);gap:12px}
+      /* 5アイテム・モバイル最終行中央寄せ */
+      .nav-icons .nav-item:last-child:nth-child(3n+2){grid-column:2}
       .nav-circle{width:60px;height:60px}
       .nav-label{font-size:10px;letter-spacing:1px}
       .page-hero{padding:36px 20px}
@@ -110,7 +112,7 @@
 
 <header class="site-header">
   <a class="logo-wrap" href="index.html">
-    <span class="logo-tagline">TOEIC Coaching</span>
+    <span class="logo-tagline">TOEICで飛立つ</span>
     <span class="logo-main">LeaPASS</span>
     <span class="logo-since">— SINCE 2025 —</span>
   </a>
@@ -120,9 +122,8 @@
   <a class="nav-item" href="service.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt=""></div><div class="nav-label">サービス</div></a>
   <a class="nav-item" href="toeic.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1739.png" alt=""></div><div class="nav-label">TOEIC対策</div></a>
   <a class="nav-item" href="materials.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1765.png" alt=""></div><div class="nav-label">学習教材</div></a>
-  <a class="nav-item" href="news.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/ic028.png" alt=""></div><div class="nav-label">お知らせ</div></a>
   <a class="nav-item" href="career.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1157.png" alt=""></div><div class="nav-label">キャリア</div></a>
-  <a class="nav-item" href="index.html#profile"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1695.png" alt=""></div><div class="nav-label">プロフィール</div></a>
+  <a class="nav-item" href="voices.html"><div class="nav-circle"><img src="https://loosedrawing.com/assets/media/illustrations/png/1776.png" alt=""></div><div class="nav-label">卒業生の声</div></a>
 </nav>
 
 <div class="page-hero">
@@ -141,9 +142,14 @@
     </div>
     <div class="service-grid">
       <div class="service-card">
-        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1456.png" alt=""></div>
-        <div class="service-card-title">オンラインコンテンツ</div>
-        <div class="service-card-desc">解説動画や教材などを<br>半永久的に利用可能</div>
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1157.png" alt=""></div>
+        <div class="service-card-title">定期面談</div>
+        <div class="service-card-desc">最低月2回のGoogle Meet面談で<br>ロードマップを伴走</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1437.png" alt=""></div>
+        <div class="service-card-title">ライト面談</div>
+        <div class="service-card-desc">15分のGoogle Meet面談が<br>無制限で受け放題</div>
       </div>
       <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1399.png" alt=""></div>
@@ -151,75 +157,34 @@
         <div class="service-card-desc">ひとりひとりに合った<br>学習ロードマップを提案</div>
       </div>
       <div class="service-card">
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1456.png" alt=""></div>
+        <div class="service-card-title">オンラインコンテンツ</div>
+        <div class="service-card-desc">解説動画や教材などを<br>半永久的に利用可能</div>
+      </div>
+      <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1766.png" alt=""></div>
         <div class="service-card-title">日報システム</div>
         <div class="service-card-desc">毎日報告のシステム化で<br>モチベーション維持</div>
       </div>
       <div class="service-card">
-        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1157.png" alt=""></div>
-        <div class="service-card-title">定期面談</div>
-        <div class="service-card-desc">最低月2回の進捗確認で<br>ロードマップを伴走</div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1437.png" alt=""></div>
-        <div class="service-card-title">Zoom面談</div>
-        <div class="service-card-desc">オンラインで完結する<br>コーチングセッション</div>
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1455.png" alt=""></div>
+        <div class="service-card-title">学習コミュニティ</div>
+        <div class="service-card-desc">仲間と一緒に、<br>ひとりだけでがんばらない</div>
       </div>
       <div class="service-card">
         <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1460.png" alt=""></div>
-        <div class="service-card-title">LINE サポート</div>
-        <div class="service-card-desc">毎日のチャットで<br>疑問をすぐに解消</div>
+        <div class="service-card-title">チャット相談</div>
+        <div class="service-card-desc">好きなときに好きなだけ<br>チャットし放題</div>
       </div>
       <div class="service-card">
-        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1455.png" alt=""></div>
-        <div class="service-card-title">勉強コミュニティ</div>
-        <div class="service-card-desc">仲間と一緒に学ぶ<br>オンライン勉強会</div>
-      </div>
-      <div class="service-card">
-        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/ic057.png" alt=""></div>
-        <div class="service-card-title">目標スコア達成</div>
-        <div class="service-card-desc">明確な指標で<br>確実にスコアアップ</div>
+        <div class="service-card-icon"><img src="https://loosedrawing.com/assets/media/illustrations/png/1695.png" alt=""></div>
+        <div class="service-card-title">キャリア支援</div>
+        <div class="service-card-desc">目標スコア達成で終わらせない<br>理想の未来実現まで伴走</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- サービス説明 -->
-<section id="explainer" class="section alt-bg">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2>サービス説明資料</h2>
-      <div class="section-rule"></div>
-      <div class="section-sub">Service Documents</div>
-    </div>
-    <div class="pdf-grid">
-      <a class="pdf-card" href="LeaPASS/pdf/leapass-presentation.pdf" target="_blank">
-        <div class="pdf-card-tag">GUIDE</div>
-        <div class="pdf-card-title">LeaPASS サービス紹介資料</div>
-        <div class="pdf-card-desc">コーチング内容・進め方を<br>まとめた紹介プレゼン資料</div>
-        <div class="pdf-card-btn">閲覧する</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/toeic-overview.pdf" target="_blank">
-        <div class="pdf-card-tag">OVERVIEW</div>
-        <div class="pdf-card-title">TOEIC学習ロードマップ概要</div>
-        <div class="pdf-card-desc">サービスで目指すスコアと<br>学習の全体像を解説</div>
-        <div class="pdf-card-btn">閲覧する</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/toeic-script.pdf" target="_blank">
-        <div class="pdf-card-tag">EXPLAINER</div>
-        <div class="pdf-card-title">「TOEICとは？」解説資料</div>
-        <div class="pdf-card-desc">試験の仕組みとスコアの<br>意味をわかりやすく紹介</div>
-        <div class="pdf-card-btn">閲覧する</div>
-      </a>
-      <a class="pdf-card" href="LeaPASS/pdf/toeic-mocktest.pdf" target="_blank">
-        <div class="pdf-card-tag">SAMPLE</div>
-        <div class="pdf-card-title">模擬問題ミニセット（解説付き）</div>
-        <div class="pdf-card-desc">セッションで使用する<br>教材のサンプル問題集</div>
-        <div class="pdf-card-btn">閲覧する</div>
-      </a>
-    </div>
-  </div>
-</section>
 
 <!-- 活用方法 -->
 <section class="section">
@@ -234,7 +199,7 @@
         <div class="howto-num">01</div>
         <div class="howto-title">サービスの活用方法</div>
         <div class="howto-desc">
-          月2回のZoom面談では目標設定・進捗確認・質問対応を行います。
+          月2回のGoogle Meet面談では目標設定・進捗確認・質問対応を行います。
           学習記録（模試スコア・取り組んだ問題数）はDiscordで報告してください。
           コーチが事前に準備し、セッションを最大限活用できます。
         </div>
@@ -255,7 +220,7 @@
         <div class="howto-title">連絡方法</div>
         <div class="howto-desc">
           日常的な質問はLINE、進捗報告や教材共有はDiscordで受け付けています。
-          Zoom面談の日程変更もチャットからご連絡ください。
+          Google Meet面談の日程変更もチャットからご連絡ください。
           緊急の場合はLINE通話でも対応します。
         </div>
         <div class="howto-link">資料を見る</div>
@@ -277,8 +242,8 @@
 <section id="contact" class="cta-section">
   <div class="cta-inner">
     <div class="cta-eyebrow">Contact</div>
-    <div class="cta-title">質問・相談はLINEから<br>いつでもどうぞ</div>
-    <a href="#" class="cta-btn">LINE で相談する</a>
+    <div class="cta-title">チャット相談は<br>いつでも受け付けています</div>
+    <a href="#" class="cta-btn">チャット相談をする</a>
   </div>
 </section>
 
